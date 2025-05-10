@@ -1,0 +1,449 @@
+/* ===== LAYOUT PRINCIPAL ===== */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding: 60px 20px;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.8), 
+        rgba(0, 0, 0, 0.8)),
+        url('../assets/images/fundo-servicos.jpg') center/cover no-repeat fixed;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== TÍTULO ===== */
+.page-title {
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    color: var(--verde);
+    text-align: center;
+    width: 100%;
+    margin: 0 0 70px 0; /* Espaçamento aumentado */
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--verde);
+    margin: 25px auto 0;
+    opacity: 0.7;
+}
+
+/* ===== CARROSSEL ===== */
+.carrossel {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.carrossel-container {
+    display: flex;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(30,30,30,0.8);
+    border: 1px solid rgba(34,237,11,0.3);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+}
+
+.servico-card {
+    min-width: 100%;
+    padding: 50px 40px;
+    text-align: center;
+    display: none;
+}
+
+.servico-card.active {
+    display: block;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.8; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.servico-card i {
+    font-size: 3.2rem;
+    color: var(--verde);
+    margin-bottom: 25px;
+}
+
+.servico-card h3 {
+    font-size: 1.8rem;
+    color: var(--verde);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.servico-card p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== SETAS ESTILIZADAS ===== */
+.carrossel-controles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.carrossel-controle {
+    background: rgba(34, 237, 11, 0.2);
+    border: 2px solid var(--verde);
+    color: var(--verde);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.carrossel-controle:hover {
+    background: var(--verde);
+    color: var(--preto);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(34, 237, 11, 0.5);
+}
+
+.carrossel-controle:active {
+    transform: scale(0.95);
+}
+
+.carrossel-controle i {
+    transition: transform 0.2s ease;
+}
+
+.carrossel-controle:hover i {
+    transform: scale(1.2);
+}
+
+.carrossel-controle::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,237,11,0.4) 0%, rgba(34,237,11,0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carrossel-controle:hover::after {
+    opacity: 1;
+}
+
+.prev i {
+    margin-right: 3px;
+}
+
+.next i {
+    margin-left: 3px;
+}
+
+/* ===== INDICADORES ===== */
+.carrossel-indicadores {
+    display: flex;
+    gap: 15px;
+}
+
+.indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicador.active {
+    background: var(--verde);
+    transform: scale(1.2);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+    }
+    
+    .carrossel-controle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .carrossel-controles {
+        gap: 20px;
+    }
+    
+    .servico-card {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .servico-card i {
+        font-size: 2.8rem;
+    }
+    
+    .servico-card h3 {
+        font-size: 1.5rem;
+    }
+}/* ===== LAYOUT PRINCIPAL ===== */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding: 60px 20px;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.8), 
+        rgba(0, 0, 0, 0.8)),
+        url('../assets/images/fundo-servicos.jpg') center/cover no-repeat fixed;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== TÍTULO ===== */
+.page-title {
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    color: var(--verde);
+    text-align: center;
+    width: 100%;
+    margin: 0 0 70px 0; /* Espaçamento aumentado */
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--verde);
+    margin: 25px auto 0;
+    opacity: 0.7;
+}
+
+/* ===== CARROSSEL ===== */
+.carrossel {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.carrossel-container {
+    display: flex;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(30,30,30,0.8);
+    border: 1px solid rgba(34,237,11,0.3);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+}
+
+.servico-card {
+    min-width: 100%;
+    padding: 50px 40px;
+    text-align: center;
+    display: none;
+}
+
+.servico-card.active {
+    display: block;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.8; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.servico-card i {
+    font-size: 3.2rem;
+    color: var(--verde);
+    margin-bottom: 25px;
+}
+
+.servico-card h3 {
+    font-size: 1.8rem;
+    color: var(--verde);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.servico-card p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== SETAS ESTILIZADAS ===== */
+.carrossel-controles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.carrossel-controle {
+    background: rgba(34, 237, 11, 0.2);
+    border: 2px solid var(--verde);
+    color: var(--verde);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.carrossel-controle:hover {
+    background: var(--verde);
+    color: var(--preto);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(34, 237, 11, 0.5);
+}
+
+.carrossel-controle:active {
+    transform: scale(0.95);
+}
+
+.carrossel-controle i {
+    transition: transform 0.2s ease;
+}
+
+.carrossel-controle:hover i {
+    transform: scale(1.2);
+}
+
+.carrossel-controle::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,237,11,0.4) 0%, rgba(34,237,11,0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carrossel-controle:hover::after {
+    opacity: 1;
+}
+
+.prev i {
+    margin-right: 3px;
+}
+
+.next i {
+    margin-left: 3px;
+}
+
+/* ===== INDICADORES ===== */
+.carrossel-indicadores {
+    display: flex;
+    gap: 15px;
+}
+
+.indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicador.active {
+    background: var(--verde);
+    transform: scale(1.2);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+    }
+    
+    .carrossel-controle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .carrossel-controles {
+        gap: 20px;
+    }
+    
+    .servico-card {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .servico-card i {
+        font-size: 2.8rem;
+    }
+    
+    .servico-card h3 {
+        font-size: 1.5rem;
+    }
+}

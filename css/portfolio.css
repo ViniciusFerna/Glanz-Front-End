@@ -1,0 +1,190 @@
+/* ===== ESTILOS GERAIS ===== */
+.main-content {
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.85), 
+        rgba(0, 0, 0, 0.85)),
+        url('../assets/images/fundo-portfolio.jpg') center/cover no-repeat fixed;
+    padding: 80px 20px;
+    min-height: 100vh;
+}
+
+.page-title {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: var(--verde);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    position: relative;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--verde);
+    margin: 25px auto 0;
+    opacity: 0.7;
+}
+
+.page-subtitle {
+    color: var(--verde);
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+
+/* ===== GALERIA DE EVENTOS ===== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.evento-card {
+    background: rgba(30, 30, 30, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(34, 237, 11, 0.1);
+}
+
+.evento-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(34, 237, 11, 0.2);
+    border-color: rgba(34, 237, 11, 0.3);
+}
+
+.evento-imagem {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.evento-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    padding: 20px;
+    color: white;
+}
+
+.evento-overlay h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--verde);
+}
+
+.evento-overlay p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.evento-info {
+    padding: 20px;
+}
+
+.evento-info p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.evento-detalhes {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.evento-detalhes li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--verde);
+}
+
+.evento-detalhes i {
+    font-size: 0.9rem;
+}
+
+/* Novos ícones */
+.fa-music, .fa-trophy, .fa-star, .fa-globe, .fa-users, .fa-lightbulb {
+    color: var(--verde);
+}
+
+/* ===== DESTAQUES NUMÉRICOS ===== */
+.destaques-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 70px;
+    flex-wrap: wrap;
+}
+
+.destaque-item {
+    text-align: center;
+}
+
+.destaque-numero {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--verde);
+    display: block;
+    line-height: 1;
+}
+
+.destaque-item p {
+    margin-top: 10px;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1200px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .page-title {
+        font-size: 2.2rem;
+    }
+    
+    .destaques-container {
+        gap: 30px;
+    }
+    
+    .evento-imagem {
+        height: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .destaque-numero {
+        font-size: 2.5rem;
+    }
+    
+    .evento-detalhes {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

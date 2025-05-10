@@ -1,0 +1,251 @@
+/* ===== VARIÁVEIS GLOBAIS ===== */
+:root {
+    --verde: #22ED0B;
+    --preto: #000000;
+    --cinza-escuro: #111111;
+    --branco: #FFFFFF;
+    --sombra-verde: 0 0 20px rgba(34, 237, 11, 0.5);
+  }
+  
+  /* ===== RESET & ESTILOS BASE ===== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--preto);
+    color: var(--branco);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+  
+  /* ===== NAVBAR (LOGO À ESQUERDA + MENU CENTRALIZADO) ===== */
+  .top-navbar {
+    width: 100%;
+    background-color: rgba(17, 17, 17, 0.9);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    position: relative; /* Necessário para posicionamento absoluto do menu */
+    border-bottom: 1px solid #333;
+    z-index: 1000;
+  }
+  
+  .navbar-logo {
+    margin-right: auto; /* Empurra o menu para o centro */
+  }
+  
+  .navbar-logo h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    white-space: nowrap;
+  }
+  
+  .navbar-logo .dot {
+    color: var(--verde);
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .navbar-menu a {
+    color: var(--branco);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+  
+  .navbar-menu a:hover {
+    background-color: var(--verde);
+    color: var(--preto);
+  }
+  
+  .navbar-menu i {
+    font-size: 1rem;
+  }
+  
+  .login-btn a {
+    background: var(--verde);
+    color: var(--preto) !important;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .login-btn a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(34, 237, 11, 0.5);
+}
+
+.login-btn a.active {
+    background: var(--preto);
+    color: var(--verde) !important;
+    border: 2px solid var(--verde);
+}
+  
+  .navbar-menu .active {
+    background-color: var(--verde);
+    color: var(--preto) !important;
+    font-weight: 700;
+  }
+  
+  /* ===== RODAPÉ ===== */
+  .social-footer {
+    padding: 25px 0;
+    background-color: rgba(17, 17, 17, 0.9);
+    border-top: 1px solid #333;
+    margin-top: auto;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+  }
+  
+  .social-icons a {
+    color: var(--branco);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: var(--verde);
+    transform: translateY(-5px);
+  }
+  
+  /* ===== ESTILOS COMPARTILHADOS ===== */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .btn {
+    background-color: var(--verde);
+    color: var(--preto);
+    border: none;
+    padding: 15px 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--sombra-verde);
+  }
+  
+  /* ===== RESPONSIVIDADE ===== */
+  @media (max-width: 992px) {
+    .navbar-menu {
+      gap: 10px;
+    }
+    .navbar-menu a {
+      padding: 8px 15px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .top-navbar {
+      flex-direction: column;
+      padding: 15px;
+      gap: 15px;
+    }
+    .navbar-logo {
+      margin-right: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .navbar-menu {
+      position: static;
+      transform: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .social-icons {
+      gap: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar-menu {
+      gap: 8px;
+    }
+    .navbar-menu a {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+    .btn {
+      padding: 12px 30px;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Adicione esta classe se quiser destacar o portfólio na navbar */
+.navbar-menu li:nth-child(3) a {
+  position: relative;
+}
+
+.navbar-menu li:nth-child(3) a::after {
+  content: "Novo!";
+  position: absolute;
+  top: -8px;
+  right: -25px;
+  background: var(--verde);
+  color: var(--preto);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Estilo para links ativos na navbar */
+.navbar-menu a.active {
+  background: var(--verde);
+  color: var(--preto) !important;
+  border-radius: 30px;
+  padding: 8px 15px;
+}
+
+/* Melhoria nos inputs em todas as páginas */
+input, select, textarea {
+  background: rgba(50, 50, 50, 0.7) !important;
+  border: 1px solid rgba(34, 237, 11, 0.3) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 12px 15px !important;
+}

@@ -1,0 +1,147 @@
+/* ===== PÁGINA "SOBRE NÓS" - CARDS CENTRALIZADOS ===== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    min-height: calc(100vh - 120px); /* Altura total menos header/footer */
+    background: 
+      linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url('../assets/images/fundo-sobre.jpg') center/cover no-repeat fixed;
+    padding: 40px 20px;
+  }
+  
+  .page-title {
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    letter-spacing: 4px;
+    color: var(--verde);
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    position: relative;
+  }
+  
+  .page-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--verde);
+    margin: 15px auto 0;
+    opacity: 0.7;
+  }
+  
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .card {
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(34, 237, 11, 0.2);
+    border-radius: 12px;
+    padding: 40px 30px;
+    width: 320px;
+    text-align: center;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--verde);
+    box-shadow: 0 10px 30px rgba(34, 237, 11, 0.3);
+  }
+  
+  .card-icon {
+    font-size: 2.8rem;
+    color: var(--verde);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover .card-icon {
+    transform: scale(1.2);
+  }
+  
+  .card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: var(--verde);
+    letter-spacing: 1px;
+  }
+  
+  .card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+  }
+  
+  /* ===== RESPONSIVIDADE ===== */
+  @media (max-width: 1200px) {
+    .cards-container {
+      max-width: 900px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .page-title {
+      font-size: 2.4rem;
+      margin-bottom: 50px;
+    }
+    .cards-container {
+      gap: 30px;
+    }
+    .card {
+      width: 280px;
+      padding: 30px 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      padding: 30px 15px;
+      min-height: calc(100vh - 100px);
+    }
+    .page-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+    .cards-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .page-title {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+    .card {
+      padding: 25px 15px;
+    }
+  }

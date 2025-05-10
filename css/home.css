@@ -1,0 +1,49 @@
+/* ESTILOS ESPECÍFICOS DA HOME */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('../assets/images/fundo-home.jpg') center/cover no-repeat fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: overlay;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 40px;
+}
+
+.logo-image {
+    max-width: 250px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 10px rgba(34, 237, 11, 0.5));
+}
+
+.slogan {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    background-color: var(--verde);
+    color: var(--preto);
+    border: none;
+    padding: 18px 60px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--verde);
+}

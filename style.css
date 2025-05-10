@@ -1,0 +1,152 @@
+/* RESET & CORES */
+:root {
+    --verde: #22ED0B;
+    --preto: #000000;
+    --cinza-escuro: #111111;
+    --branco: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url(/fundo-evento.jpg.jpg) center/cover no-repeat fixed;
+    color: var(--branco);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR TOPO (LOGO À ESQUERDA + MENU CENTRALIZADO) */
+.top-navbar {
+    width: 100%;
+    background-color: rgba(17, 17, 17, 0.8);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border-bottom: 1px solid #333;
+}
+
+.navbar-logo h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    white-space: nowrap;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    flex: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.navbar-menu a {
+    color: var(--branco);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.navbar-menu a:hover {
+    background-color: var(--verde);
+    color: var(--preto);
+}
+
+.login-btn a {
+    background-color: var(--verde);
+    color: var(--preto) !important;
+    padding: 8px 20px;
+}
+
+/* CONTEÚDO PRINCIPAL (COM OVERLAY ESCURO PARA LEGIBILIDADE) */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay para contraste */
+}
+
+.container {
+    max-width: 1200px;
+    padding: 40px;
+}
+
+.slogan {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    background-color: var(--verde);
+    color: var(--preto);
+    border: none;
+    padding: 18px 60px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--verde);
+}
+
+/* RODAPÉ */
+.social-footer {
+    padding: 20px 0;
+    background-color: rgba(17, 17, 17, 0.8);
+    border-top: 1px solid #333;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-icons a {
+    color: var(--branco);
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--verde);
+    transform: translateY(-5px);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .top-navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .navbar-menu {
+        gap: 10px;
+    }
+    .slogan {
+        font-size: 1.8rem;
+    }
+}
