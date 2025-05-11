@@ -11,18 +11,19 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="top-navbar">
-        <div class="navbar-logo">
-            <h1>Glanz<span class="dot">.</span></h1>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
-            <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
-            <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-            <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-        </ul>
-    </nav>
+<nav class="top-navbar">
+    <div class="navbar-logo">
+        <h1>Glanz<span class="dot">.</span></h1>
+    </div>
+    <ul class="navbar-menu">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
+        <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
+        <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+        <!-- O item de Eventos será inserido dinamicamente pelo JavaScript -->
+        <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+    </ul>
+</nav>
 
     <!-- Conteúdo Principal -->
     <main class="main-content" id="hero-slider">
@@ -44,5 +45,41 @@
     </footer>
 
     <script src="js/slider.js"></script>
+    <script>
+    // Verificar estado de login e atualizar navbar
+    document.addEventListener('DOMContentLoaded', function() {
+        const authToken = localStorage.getItem('authToken');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const loginItem = document.querySelector('.login-btn');
+        const eventosItem = document.createElement('li');
+        
+        // Criar item de Eventos
+        eventosItem.innerHTML = `
+            <a href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+        `;
+        
+        // Adicionar item de Eventos antes do Login
+        if (navbarMenu && loginItem) {
+            navbarMenu.insertBefore(eventosItem, loginItem);
+        }
+        
+        // Se estiver logado, substituir Login por Logout
+        if (authToken) {
+            if (loginItem) {
+                loginItem.innerHTML = `
+                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                `;
+                
+                // Adicionar evento de logout
+                document.querySelector('.logout-btn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userName');
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,276 @@
+/* ESTILOS ESPECÍFICOS PARA A PÁGINA DE EVENTOS */
+.main-content {
+    padding: 50px 0;
+    background-color: var(--preto);
+    min-height: calc(100vh - 120px);
+}
+
+.page-title {
+    color: var(--branco);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.page-subtitle {
+    color: var(--verde);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.events-controls {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background-color: var(--cinza-escuro);
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid rgba(34, 237, 11, 0.3);
+    box-shadow: var(--sombra-verde);
+    position: relative;
+}
+
+.modal-content h2 {
+    color: var(--verde);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--verde);
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+}
+
+/* Formulário */
+#eventForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(50, 50, 50, 0.7) !important;
+    border: 1px solid rgba(34, 237, 11, 0.3) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#eventForm button[type="submit"] {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Lista de Eventos */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.event-card {
+    background: var(--cinza-escuro);
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid var(--verde);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.event-card h3 {
+    color: var(--verde);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.event-card p {
+    color: #ccc;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.event-date {
+    color: var(--verde) !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.event-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.status-PLANEJADO {
+    background-color: rgba(255, 243, 205, 0.2);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+.status-EM_ANDAMENTO {
+    background-color: rgba(13, 110, 253, 0.2);
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
+
+.status-CONCLUIDO {
+    background-color: rgba(25, 135, 84, 0.2);
+    color: #198754;
+    border: 1px solid #198754;
+}
+
+.status-CANCELADO {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.event-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.event-actions button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.event-actions button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.event-actions .edit-btn {
+    background-color: var(--verde);
+    color: var(--preto);
+}
+
+.event-actions .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.loading-events {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--verde);
+    font-size: 1.2rem;
+}
+
+.no-events {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1rem;
+    }
+    
+    .events-controls {
+        justify-content: center;
+    }
+    
+    #newEventBtn {
+        width: 100%;
+    }
+}

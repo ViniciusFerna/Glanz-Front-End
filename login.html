@@ -10,60 +10,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="top-navbar">
-        <div class="navbar-logo">
-            <h1>Glanz<span class="dot">.</span></h1>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
-            <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
-            <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-            <li class="login-btn"><a href="login.html" class="active"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-        </ul>
-    </nav>
+<nav class="top-navbar">
+    <div class="navbar-logo">
+        <h1>Glanz<span class="dot">.</span></h1>
+    </div>
+    <ul class="navbar-menu">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
+        <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
+        <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+        <!-- O item de Eventos será inserido dinamicamente pelo JavaScript -->
+        <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+    </ul>
+</nav>
 
-    <!-- Conteúdo Principal -->
-    <main class="main-content">
+    <main class="login-main">
         <div class="login-container">
-            <div class="login-card">
-                <h2><i class="fas fa-lock"></i> ACESSO RESTRITO</h2>
-                <form class="login-form">
-                    <div class="input-group">
-                        <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
-                        <input type="email" id="email" placeholder="seu@email.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="senha"><i class="fas fa-key"></i> Senha</label>
-                        <input type="password" id="senha" placeholder="••••••••" required>
-                        <a href="#" class="esqueci-senha">Esqueci minha senha</a>
-                    </div>
-                    
-                    <button type="submit" class="btn-login">ENTRAR <i class="fas fa-arrow-right"></i></button>
-                    
-                    <div class="login-social">
-                        <p>Ou entre com:</p>
-                        <div class="social-buttons">
-                            <button type="button" class="btn-social google">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                            <button type="button" class="btn-social linkedin">
-                                <i class="fab fa-linkedin-in"></i> LinkedIn
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="cadastro-link">
-                        Não tem conta? <a href="cadastro.html">Cadastre-se</a>
-                    </div>
-                </form>
+            <div class="login-header">
+                <h2><i class="fas fa-sign-in-alt"></i> Acesse sua conta</h2>
+                <p>Gerencie seus eventos e serviços</p>
             </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" id="password" required>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                
+                <div class="login-footer">
+                    <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+                </div>
+            </form>
         </div>
     </main>
 
-    <!-- Rodapé -->
     <footer class="social-footer">
         <div class="social-icons">
             <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -72,5 +61,43 @@
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </footer>
+
+    <script src="js/login.js"></script>
+    <script>
+    // Verificar estado de login e atualizar navbar
+    document.addEventListener('DOMContentLoaded', function() {
+        const authToken = localStorage.getItem('authToken');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const loginItem = document.querySelector('.login-btn');
+        const eventosItem = document.createElement('li');
+        
+        // Criar item de Eventos
+        eventosItem.innerHTML = `
+            <a href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+        `;
+        
+        // Adicionar item de Eventos antes do Login
+        if (navbarMenu && loginItem) {
+            navbarMenu.insertBefore(eventosItem, loginItem);
+        }
+        
+        // Se estiver logado, substituir Login por Logout
+        if (authToken) {
+            if (loginItem) {
+                loginItem.innerHTML = `
+                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                `;
+                
+                // Adicionar evento de logout
+                document.querySelector('.logout-btn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userName');
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    });
+</script>
 </body>
 </html>

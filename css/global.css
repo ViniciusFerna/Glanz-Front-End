@@ -249,3 +249,30 @@ input, select, textarea {
   border-radius: 8px !important;
   padding: 12px 15px !important;
 }
+
+/* Estilos para o modal (compatibilidade) */
+.modal {
+    display: none;
+}
+
+/* Melhorias nos formulários */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--branco);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background: rgba(50, 50, 50, 0.7);
+    border: 1px solid rgba(34, 237, 11, 0.3);
+    color: white;
+    border-radius: 8px;
+}

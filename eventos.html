@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Eventos - Glanz</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/eventos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+<nav class="top-navbar">
+    <div class="navbar-logo">
+        <h1>Glanz<span class="dot">.</span></h1>
+    </div>
+    <ul class="navbar-menu">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
+        <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
+        <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+        <!-- O item de Eventos será inserido dinamicamente pelo JavaScript -->
+        <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+    </ul>
+</nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <h2 class="page-title">GERENCIADOR DE EVENTOS</h2>
+            <p class="page-subtitle">Crie e gerencie seus eventos</p>
+            
+            <div class="events-controls">
+                <button id="newEventBtn" class="btn">
+                    <i class="fas fa-plus"></i> Novo Evento
+                </button>
+            </div>
+
+            <!-- Modal para criação/edição -->
+            <div id="eventModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2 id="modalTitle"><i class="fas fa-calendar-plus"></i> Novo Evento</h2>
+                    <form id="eventForm">
+                        <input type="hidden" id="eventId">
+                        
+                        <div class="form-group">
+                            <label for="title"><i class="fas fa-heading"></i> Título*</label>
+                            <input type="text" id="title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description"><i class="fas fa-align-left"></i> Descrição</label>
+                            <textarea id="description" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location"><i class="fas fa-map-marker-alt"></i> Local*</label>
+                            <input type="text" id="location" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDate"><i class="far fa-clock"></i> Data e Hora*</label>
+                            <input type="datetime-local" id="eventDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status"><i class="fas fa-info-circle"></i> Status*</label>
+                            <select id="status" required>
+                                <option value="PLANEJADO">Planejado</option>
+                                <option value="EM_ANDAMENTO">Em Andamento</option>
+                                <option value="CONCLUIDO">Concluído</option>
+                                <option value="CANCELADO">Cancelado</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> Salvar Evento
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Lista de eventos -->
+            <div id="eventsList" class="events-grid">
+                <!-- Eventos serão carregados aqui via JavaScript -->
+                <div class="loading-events">
+                    <i class="fas fa-spinner fa-spin"></i> Carregando eventos...
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="social-footer">
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script src="js/eventos.js"></script>
+    <script>
+    // Verificar estado de login e atualizar navbar
+    document.addEventListener('DOMContentLoaded', function() {
+        const authToken = localStorage.getItem('authToken');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const loginItem = document.querySelector('.login-btn');
+        const eventosItem = document.createElement('li');
+        
+        // Criar item de Eventos
+        eventosItem.innerHTML = `
+            <a href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+        `;
+        
+        // Adicionar item de Eventos antes do Login
+        if (navbarMenu && loginItem) {
+            navbarMenu.insertBefore(eventosItem, loginItem);
+        }
+        
+        // Se estiver logado, substituir Login por Logout
+        if (authToken) {
+            if (loginItem) {
+                loginItem.innerHTML = `
+                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                `;
+                
+                // Adicionar evento de logout
+                document.querySelector('.logout-btn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userName');
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
