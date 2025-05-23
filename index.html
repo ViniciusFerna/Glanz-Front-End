@@ -3,83 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glanz - Eventos Inesquecíveis</title>
+    <title>GLANZ | Experiências Memoráveis em Eventos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
-<nav class="top-navbar">
-    <div class="navbar-logo">
-        <h1>Glanz<span class="dot">.</span></h1>
-    </div>
-    <ul class="navbar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
-        <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
-        <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-        <!-- O item de Eventos será inserido dinamicamente pelo JavaScript -->
-        <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-    </ul>
-</nav>
-
-    <!-- Conteúdo Principal -->
-    <main class="main-content" id="hero-slider">
+    <!-- Navbar Minimalista Fixa -->
+    <nav class="navbar navbar-expand-lg top-navbar fixed-top">
         <div class="container">
-            <img src="assets/logo-glanz.png" alt="Logo Glanz" class="logo-image">
-            <p class="slogan">TORNE O SEU EVENTO INESQUECÍVEL</p>
-            <button class="btn">CADASTRE-SE</button>
+            <a class="navbar-brand" href="index.html">
+                <h1>GLANZ<span class="dot">.</span></h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sobre.html"><i class="fas fa-users"></i> Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </div>
+            </div>
         </div>
-    </main>
+    </nav>
+
+    <!-- Hero Section com Imagem -->
+    <header class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1><span class="highlight">Criamos experiências</span> que inspiram e conectam</h1>
+                    <p class="hero-subtitle">Soluções completas para eventos corporativos, sociais e culturais</p>
+                    <div class="hero-cta">
+                        <a href="portfolio.html" class="btn btn-primary me-3">
+                            <i class="fas fa-play"></i> Ver Cases
+                        </a>
+                        <a href="#contato" class="btn btn-outline">
+                            <i class="fab fa-whatsapp"></i> Fale Conosco
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Diferenciais -->
+    <section class="diferenciais py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Nossas <span class="highlight">Expertises</span></h2>
+                <p class="text-light-expert">Integrando criatividade e tecnologia para resultados excepcionais</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="diferencial-card h-100">
+                        <div class="card-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Eventos Corporativos</h3>
+                        <ul class="mt-3">
+                            <li>Convenções e feiras</li>
+                            <li>Lançamentos de produtos</li>
+                            <li>Treinamentos corporativos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="diferencial-card h-100">
+                        <div class="card-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3>Eventos Sociais</h3>
+                        <ul class="mt-3">
+                            <li>Casamentos e festas</li>
+                            <li>Aniversários temáticos</li>
+                            <li>Eventos beneficentes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="diferencial-card h-100">
+                        <div class="card-icon">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3>Eventos Culturais</h3>
+                        <ul class="mt-3">
+                            <li>Shows e festivais</li>
+                            <li>Exposições artísticas</li>
+                            <li>Eventos comunitários</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Portfólio Atualizada -->
+    <section class="portfolio-showcase py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <div class="section-tag">Portfólio</div>
+                <h2 class="section-title">Transformando <span class="highlight">Ideias</span> em Realidade</h2>
+                <p class="section-subtitle">Cada evento é uma história única que contamos juntos</p>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item featured">
+                    <div class="portfolio-image" style="background-image: url('assets/images/evento-tech.png');">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Tech Conference 2023</h3>
+                                <div class="portfolio-stats">
+                                    <span><i class="fas fa-users"></i> 1.200+ participantes</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo</span>
+                                </div>
+                                <a href="portfolio-detalhe-tech.html" class="btn btn-portfolio">Ver Detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="tag-corporativo">Evento Corporativo</span>
+                        <span class="tag-tecnologia">Tecnologia</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-items">
+                    <div class="portfolio-item">
+                        <div class="portfolio-image" style="background-image: url('assets/images/casamento.jpg');">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Casamento Luxury</h3>
+                                    <a href="portfolio-detalhe-casamento.html" class="btn btn-portfolio">Ver Detalhes</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag-social">Evento Social</span>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-image" style="background-image: url('assets/images/evento-musical.jpg');">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Festival de Verão</h3>
+                                    <a href="portfolio-detalhe-festival.html" class="btn btn-portfolio">Ver Detalhes</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag-cultural">Evento Cultural</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="portfolio.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-images me-2"></i> Explorar Portfólio Completo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="contato py-5">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2>Pronto para <span class="highlight">criar algo incrível</span> juntos?</h2>
+                    <p class="mt-4 mb-5">Entre em contato diretamente pelo WhatsApp</p>
+                    
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-4">
+                        <div class="contato-item">
+                            <i class="fas fa-envelope fa-2x mb-3"></i>
+                            <p>contato@glanz.com.br</p>
+                        </div>
+                        <div class="contato-item">
+                            <i class="fas fa-phone-alt fa-2x mb-3"></i>
+                            <p>(11) 1234-5678</p>
+                        </div>
+                        <div class="contato-item">
+                            <i class="fas fa-map-marker-alt fa-2x mb-3"></i>
+                            <p>Av. Paulista, 1000 - São Paulo/SP</p>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços" 
+                       class="btn btn-success btn-lg mt-5 px-5 py-3">
+                        <i class="fab fa-whatsapp me-2"></i> Fale conosco pelo WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Rodapé -->
-    <footer class="social-footer">
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">
+                        <h2>GLANZ<span class="dot">.</span></h2>
+                        <p>Criando experiências que inspiram</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3>Links Rápidos</h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+                        <li class="nav-item"><a href="portfolio.html" class="nav-link">Portfólio</a></li>
+                        <li class="nav-item"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Conecte-se</h3>
+                    <div class="social-icons">
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p>&copy; 2024 GLANZ Eventos. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="js/slider.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/home.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-    // Verificar estado de login e atualizar navbar
-    document.addEventListener('DOMContentLoaded', function() {
-        const authToken = localStorage.getItem('authToken');
-        const navbarMenu = document.querySelector('.navbar-menu');
-        const loginItem = document.querySelector('.login-btn');
-        const eventosItem = document.createElement('li');
-        
-        // Criar item de Eventos
-        eventosItem.innerHTML = `
-            <a href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
-        `;
-        
-        // Adicionar item de Eventos antes do Login
-        if (navbarMenu && loginItem) {
-            navbarMenu.insertBefore(eventosItem, loginItem);
-        }
-        
-        // Se estiver logado, substituir Login por Logout
-        if (authToken) {
-            if (loginItem) {
-                loginItem.innerHTML = `
-                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                `;
-                
-                // Adicionar evento de logout
-                document.querySelector('.logout-btn').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userName');
-                    window.location.href = 'index.html';
-                });
-            }
-        }
-    });
-</script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out'
+        });
+    </script>
 </body>
 </html>

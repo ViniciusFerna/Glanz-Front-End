@@ -1,147 +1,282 @@
-/* ===== PÁGINA "SOBRE NÓS" - CARDS CENTRALIZADOS ===== */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    min-height: calc(100vh - 120px); /* Altura total menos header/footer */
-    background: 
-      linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-      url('../assets/images/fundo-sobre.jpg') center/cover no-repeat fixed;
-    padding: 40px 20px;
-  }
-  
-  .page-title {
-    font-size: 2.8rem;
-    text-transform: uppercase;
-    margin-bottom: 60px;
-    letter-spacing: 4px;
-    color: var(--verde);
-    text-align: center;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+/* ===== HERO SOBRE ===== */
+.hero-sobre {
     position: relative;
-  }
-  
-  .page-title::after {
+    height: 60vh;
+    min-height: 500px;
+    overflow: hidden;
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+}
+
+.hero-sobre .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-sobre .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 2;
+}
+
+.hero-sobre .hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-sobre h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.hero-sobre .hero-subtitle {
+    font-size: 1.3rem;
+    max-width: 600px;
+}
+
+/* ===== NOSSA JORNADA ===== */
+.nossa-jornada {
+    background-color: var(--preto);
+    color: var(--branco);
+}
+
+.nossa-jornada h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.journey-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+
+.journey-list li {
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.journey-list i {
+    color: var(--verde);
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-size: 1.2rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 50px;
+}
+
+.timeline::before {
     content: '';
-    display: block;
-    width: 80px;
-    height: 3px;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
     background: var(--verde);
-    margin: 15px auto 0;
-    opacity: 0.7;
-  }
-  
-  .cards-container {
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--verde);
+    border: 3px solid var(--preto);
+    z-index: 2;
+}
+
+.timeline-item h3 {
+    color: var(--verde);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.timeline-item p {
+    color: rgba(255,255,255,0.8);
+}
+
+/* ===== VALORES ===== */
+.valores {
+    background-color: var(--cinza-escuro);
+}
+
+.value-card {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.value-card:hover {
+    background: rgba(34, 237, 11, 0.1);
+    border-color: var(--verde);
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: var(--verde);
+    margin-bottom: 20px;
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--branco);
+}
+
+.value-card p {
+    color: rgba(255,255,255,0.7);
+}
+
+/* ===== EQUIPE ===== */
+.equipe {
+    background-color: var(--preto);
+}
+
+.team-card {
+    background: var(--cinza-escuro);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(34, 237, 11, 0.2);
+}
+
+.team-img {
+    height: 300px;
+    overflow: hidden;
+}
+
+.team-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-img img {
+    transform: scale(1.05);
+}
+
+.team-info {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.team-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: var(--branco);
+}
+
+.team-info p {
+    color: var(--verde);
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.social-links {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .card {
-    background: rgba(30, 30, 30, 0.7);
-    border: 1px solid rgba(34, 237, 11, 0.2);
-    border-radius: 12px;
-    padding: 40px 30px;
-    width: 320px;
-    text-align: center;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .card-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .card:hover {
-    transform: translateY(-10px) scale(1.03);
-    border-color: var(--verde);
-    box-shadow: 0 10px 30px rgba(34, 237, 11, 0.3);
-  }
-  
-  .card-icon {
-    font-size: 2.8rem;
-    color: var(--verde);
-    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.social-links a {
+    color: rgba(255,255,255,0.6);
     transition: all 0.3s ease;
-  }
-  
-  .card:hover .card-icon {
-    transform: scale(1.2);
-  }
-  
-  .card h3 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.social-links a:hover {
     color: var(--verde);
-    letter-spacing: 1px;
-  }
-  
-  .card p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 20px;
-  }
-  
-  /* ===== RESPONSIVIDADE ===== */
-  @media (max-width: 1200px) {
-    .cards-container {
-      max-width: 900px;
+    transform: translateY(-3px);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 992px) {
+    .hero-sobre h1 {
+        font-size: 2.5rem;
     }
-  }
-  
-  @media (max-width: 992px) {
-    .page-title {
-      font-size: 2.4rem;
-      margin-bottom: 50px;
+    
+    .nossa-jornada h2 {
+        font-size: 2rem;
     }
-    .cards-container {
-      gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .hero-sobre {
+        height: 50vh;
     }
-    .card {
-      width: 280px;
-      padding: 30px 20px;
+    
+    .hero-sobre h1 {
+        font-size: 2rem;
     }
-  }
-  
-  @media (max-width: 768px) {
-    .main-content {
-      padding: 30px 15px;
-      min-height: calc(100vh - 100px);
+    
+    .hero-sobre .hero-subtitle {
+        font-size: 1.1rem;
     }
-    .page-title {
-      font-size: 2rem;
-      margin-bottom: 40px;
+    
+    .timeline {
+        padding-left: 30px;
     }
-    .cards-container {
-      flex-direction: column;
-      align-items: center;
+    
+    .timeline-item::before {
+        left: -20px;
     }
-    .card {
-      width: 100%;
-      max-width: 400px;
+}
+
+@media (max-width: 576px) {
+    .hero-sobre {
+        height: 40vh;
+        min-height: 400px;
     }
-  }
-  
-  @media (max-width: 480px) {
-    .page-title {
-      font-size: 1.8rem;
-      letter-spacing: 2px;
+    
+    .hero-sobre h1 {
+        font-size: 1.8rem;
     }
-    .card {
-      padding: 25px 15px;
+    
+    .team-img {
+        height: 250px;
     }
-  }
+}

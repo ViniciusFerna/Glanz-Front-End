@@ -1,101 +1,269 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sobre Nós - Glanz</title>
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/sobre.css">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós | GLANZ - Experiências Memoráveis em Eventos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sobre.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 <body>
-    <!-- Navbar -->
-<nav class="top-navbar">
-    <div class="navbar-logo">
-        <h1>Glanz<span class="dot">.</span></h1>
-    </div>
-    <ul class="navbar-menu">
-        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="sobre.html"><i class="fas fa-users"></i> Sobre nós</a></li>
-        <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a></li>
-        <li><a href="servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-        <!-- O item de Eventos será inserido dinamicamente pelo JavaScript -->
-        <li class="login-btn"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-    </ul>
-</nav>
-
-    <!-- Conteúdo -->
-    <main class="main-content">
+    <!-- Navbar (idêntico ao da index) -->
+    <nav class="navbar navbar-expand-lg top-navbar fixed-top">
         <div class="container">
-            <h2 class="page-title">SOBRE NÓS</h2>
-            <div class="cards-container">
-                <!-- Card 1 -->
-                <div class="card">
-                    <i class="fas fa-lightbulb card-icon"></i>
-                    <h3>Quem Somos</h3>
-                    <p>Especialistas em criar eventos que unem eficiência e experiências memoráveis, desde 2024.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="card">
-                    <i class="fas fa-history card-icon"></i>
-                    <h3>Nossa História</h3>
-                    <p>Nascida da paixão por transformar eventos corporativos em plataformas de conexão e inovação.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="card">
-                    <i class="fas fa-users card-icon"></i>
-                    <h3>Nossa Equipe</h3>
-                    <p>Profissionais visionários com expertise em design, logística e tecnologia.</p>
+            <a class="navbar-brand" href="index.html">
+                <h1>GLANZ<span class="dot">.</span></h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="sobre.html"><i class="fas fa-users"></i> Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
                 </div>
             </div>
         </div>
-    </main>
+    </nav>
 
-    <!-- Rodapé -->
-    <footer class="social-footer">
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <!-- Hero Section Adaptada -->
+    <header class="hero-sobre">
+        <div class="hero-video">
+            <img src="assets/images/sobre-fundo.jpg" alt="Background sobre nós" class="hero-background-img">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1><span class="highlight">Nossa história</span> e propósito</h1>
+                    <p class="hero-subtitle">Conectando pessoas através de experiências memoráveis desde 2015</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção Nossa Jornada -->
+    <section class="nossa-jornada py-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <div class="timeline">
+                        <div class="timeline-item" data-aos="fade-right">
+                            <h3>2015 - Fundação</h3>
+                            <p>Nascida em São Paulo com uma pequena equipe de 5 profissionais apaixonados por eventos</p>
+                        </div>
+                        <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                            <h3>2018 - Primeiro Grande Evento</h3>
+                            <p>Organizamos o Tech Conference para 1.200 participantes</p>
+                        </div>
+                        <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+                            <h3>2020 - Adaptação Digital</h3>
+                            <p>Pioneiros na transição para eventos híbridos durante a pandemia</p>
+                        </div>
+                        <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+                            <h3>2023 - Expansão Nacional</h3>
+                            <p>Atendemos clientes em 12 estados brasileiros</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <h2 class="mb-4">Nossa <span class="highlight">jornada</span> até aqui</h2>
+                    <p class="lead">O que começou como um sonho compartilhado tornou-se referência em produção de eventos</p>
+                    <p class="mt-3">A GLANZ surgiu da percepção de que eventos poderiam ser mais do que simples reuniões - poderiam ser experiências transformadoras. Ao longo dos anos, desenvolvemos uma metodologia única que combina:</p>
+                    <ul class="journey-list">
+                        <li><i class="fas fa-check-circle"></i> Planejamento estratégico</li>
+                        <li><i class="fas fa-check-circle"></i> Tecnologia inovadora</li>
+                        <li><i class="fas fa-check-circle"></i> Design emocional</li>
+                        <li><i class="fas fa-check-circle"></i> Execução impecável</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Valores -->
+    <section class="valores py-5 bg-dark">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Nossos <span class="highlight">Valores</span></h2>
+                <p class="text-muted">Princípios que guiam cada decisão e ação</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Inovação</h3>
+                        <p>Sempre buscamos novas formas de surpreender e encantar</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Integridade</h3>
+                        <p>Agimos com transparência e ética em todos os relacionamentos</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Paixão</h3>
+                        <p>Acreditamos no poder transformador dos eventos bem executados</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Excelência</h3>
+                        <p>Buscamos a perfeição em cada detalhe executado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Equipe -->
+    <section class="equipe py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Conheça <span class="highlight">nossa equipe</span></h2>
+                <p class="text-muted">Profissionais dedicados a criar experiências únicas</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <img src="assets/images/evento-tech.png" alt="Diretor Executivo">
+                        </div>
+                        <div class="team-info">
+                            <h3>Carlos Mendes</h3>
+                            <p>Diretor Executivo</p>
+                            <div class="social-links mt-3">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repetir para outros 3 membros da equipe -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <img src="assets/images/evento-lancamento.jpeg" alt="Diretora Criativa">
+                        </div>
+                        <div class="team-info">
+                            <h3>Ana Lúcia</h3>
+                            <p>Diretora Criativa</p>
+                            <div class="social-links mt-3">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <img src="assets/images/evento-musical.jpg" alt="Gerente de Operações">
+                        </div>
+                        <div class="team-info">
+                            <h3>Roberto Almeida</h3>
+                            <p>Gerente de Operações</p>
+                            <div class="social-links mt-3">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <img src="assets/images/evento-premio.jpg" alt="Head de Tecnologia">
+                        </div>
+                        <div class="team-info">
+                            <h3>Juliana Santos</h3>
+                            <p>Head de Tecnologia</p>
+                            <div class="social-links mt-3">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé (idêntico ao da index) -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">
+                        <h2>GLANZ<span class="dot">.</span></h2>
+                        <p>Criando experiências que inspiram</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3>Links Rápidos</h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+                        <li class="nav-item"><a href="portfolio.html" class="nav-link">Portfólio</a></li>
+                        <li class="nav-item"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Conecte-se</h3>
+                    <div class="social-icons">
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p>&copy; 2024 GLANZ Eventos. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/sobre.js"></script>
     <script>
-    // Verificar estado de login e atualizar navbar
-    document.addEventListener('DOMContentLoaded', function() {
-        const authToken = localStorage.getItem('authToken');
-        const navbarMenu = document.querySelector('.navbar-menu');
-        const loginItem = document.querySelector('.login-btn');
-        const eventosItem = document.createElement('li');
-        
-        // Criar item de Eventos
-        eventosItem.innerHTML = `
-            <a href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
-        `;
-        
-        // Adicionar item de Eventos antes do Login
-        if (navbarMenu && loginItem) {
-            navbarMenu.insertBefore(eventosItem, loginItem);
-        }
-        
-        // Se estiver logado, substituir Login por Logout
-        if (authToken) {
-            if (loginItem) {
-                loginItem.innerHTML = `
-                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                `;
-                
-                // Adicionar evento de logout
-                document.querySelector('.logout-btn').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userName');
-                    window.location.href = 'index.html';
-                });
-            }
-        }
-    });
-</script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    </script>
 </body>
 </html>

@@ -5,274 +5,284 @@
     --cinza-escuro: #111111;
     --branco: #FFFFFF;
     --sombra-verde: 0 0 20px rgba(34, 237, 11, 0.5);
-  }
-  
-  /* ===== RESET & ESTILOS BASE ===== */
-  * {
+}
+
+/* ===== RESET & ESTILOS BASE ===== */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     background-color: var(--preto);
     color: var(--branco);
     font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     line-height: 1.6;
-  }
-  
-  /* ===== NAVBAR (LOGO À ESQUERDA + MENU CENTRALIZADO) ===== */
-  .top-navbar {
+    padding-top: 70px; /* Compensa a navbar fixa */
+}
+
+/* ===== NAVBAR MINIMALISTA ===== */
+.top-navbar {
+    position: fixed;
     width: 100%;
-    background-color: rgba(17, 17, 17, 0.9);
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    position: relative; /* Necessário para posicionamento absoluto do menu */
-    border-bottom: 1px solid #333;
+    top: 0;
+    background-color: rgba(17, 17, 17, 0.98) !important;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 1000;
-  }
-  
-  .navbar-logo {
-    margin-right: auto; /* Empurra o menu para o centro */
-  }
-  
-  .navbar-logo h1 {
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: -2px;
-    white-space: nowrap;
-  }
-  
-  .navbar-logo .dot {
+    padding: 12px 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand h1 {
+    color: var(--branco) !important;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover h1 {
+    transform: scale(1.03);
+}
+
+.navbar-brand .dot {
     color: var(--verde);
-  }
-  
-  .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .navbar-menu a {
+}
+
+.navbar-toggler {
     color: var(--branco);
-    text-decoration: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.navbar-nav .nav-link {
+    color: var(--branco) !important;
     font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px !important;
+    margin: 0 4px;
+    position: relative;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-  }
-  
-  .navbar-menu a:hover {
+}
+
+.navbar-nav .nav-link i {
+    font-size: 0.9rem;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Efeito de sublinhado */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 2px;
+    left: 16px;
     background-color: var(--verde);
-    color: var(--preto);
-  }
-  
-  .navbar-menu i {
-    font-size: 1rem;
-  }
-  
-  .login-btn a {
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: calc(100% - 32px);
+}
+
+/* Botão de Login Otimizado */
+.btn-login {
     background: var(--verde);
-    color: var(--preto) !important;
-    padding: 8px 20px;
-    border-radius: 30px;
+    color: var(--branco) !important;
+    padding: 6px 18px !important;
+    font-size: 0.85rem;
     font-weight: 600;
+    border-radius: 20px;
     transition: all 0.3s ease;
-  }
-
-  .login-btn a:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(34, 237, 11, 0.5);
-}
-
-.login-btn a.active {
-    background: var(--preto);
-    color: var(--verde) !important;
-    border: 2px solid var(--verde);
-}
-  
-  .navbar-menu .active {
-    background-color: var(--verde);
-    color: var(--preto) !important;
-    font-weight: 700;
-  }
-  
-  /* ===== RODAPÉ ===== */
-  .social-footer {
-    padding: 25px 0;
-    background-color: rgba(17, 17, 17, 0.9);
-    border-top: 1px solid #333;
-    margin-top: auto;
-  }
-  
-  .social-icons {
+    border: none;
+    margin-left: 12px;
     display: flex;
-    justify-content: center;
-    gap: 25px;
-  }
-  
-  .social-icons a {
-    color: var(--branco);
-    font-size: 1.4rem;
-    transition: all 0.3s ease;
-  }
-  
-  .social-icons a:hover {
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-login i {
+    margin-right: 0;
+    font-size: 0.8rem;
+}
+
+.btn-login:hover {
+    background: #1ec70e !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 12px rgba(34, 237, 11, 0.3);
+}
+
+.btn-login:active {
+    background: #19b30a !important;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn-outline-verde {
+    border: 2px solid var(--verde);
     color: var(--verde);
-    transform: translateY(-5px);
-  }
-  
-  /* ===== ESTILOS COMPARTILHADOS ===== */
-  .container {
+    background: transparent;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-outline-verde:hover {
+    background: var(--verde);
+    color: var(--preto);
+    box-shadow: 0 0 15px rgba(34, 237, 11, 0.4);
+}
+
+.btn-outline-verde i {
+    transition: transform 0.3s ease;
+}
+
+.btn-outline-verde:hover i {
+    transform: translateX(-3px);
+}
+
+/* ===== RODAPÉ ===== */
+.footer {
+    background-color: rgba(17, 17, 17, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-logo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.footer-logo .dot {
+    color: var(--verde);
+}
+
+.footer-links h3,
+.footer-social h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: var(--branco);
+    font-weight: 600;
+}
+
+.footer-links .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 5px 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.footer-links .nav-link:hover {
+    color: var(--verde);
+    padding-left: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--verde);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== UTILITÁRIOS ===== */
+.highlight {
+    color: var(--verde);
+}
+
+.container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-  }
-  
-  .btn {
-    background-color: var(--verde);
-    color: var(--preto);
-    border: none;
-    padding: 15px 50px;
-    font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
-  }
-  
-  .btn:hover {
-    transform: scale(1.05);
-    box-shadow: var(--sombra-verde);
-  }
-  
-  /* ===== RESPONSIVIDADE ===== */
-  @media (max-width: 992px) {
-    .navbar-menu {
-      gap: 10px;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 992px) {
+    .navbar-brand h1 {
+        font-size: 1.6rem;
     }
-    .navbar-menu a {
-      padding: 8px 15px;
-      font-size: 0.9rem;
+    
+    .navbar-nav {
+        padding-top: 1rem;
     }
-  }
-  
-  @media (max-width: 768px) {
-    .top-navbar {
-      flex-direction: column;
-      padding: 15px;
-      gap: 15px;
+    
+    .btn-login {
+        margin: 1rem 0 0 0;
+        width: fit-content;
     }
-    .navbar-logo {
-      margin-right: 0;
-      width: 100%;
-      text-align: center;
+    
+    .footer-logo,
+    .footer-links,
+    .footer-social {
+        margin-bottom: 2rem;
+        text-align: center;
     }
-    .navbar-menu {
-      position: static;
-      transform: none;
-      justify-content: center;
-      flex-wrap: wrap;
-      width: 100%;
+    
+    .footer-links .nav {
+        align-items: center;
     }
+    
     .social-icons {
-      gap: 15px;
+        justify-content: center;
     }
-  }
-  
-  @media (max-width: 480px) {
-    .navbar-menu {
-      gap: 8px;
+}
+
+@media (max-width: 576px) {
+    .navbar-brand h1 {
+        font-size: 1.5rem;
     }
-    .navbar-menu a {
-      padding: 6px 12px;
-      font-size: 0.8rem;
+    
+    .navbar-nav .nav-link {
+        padding: 8px 0 !important;
+        margin: 2px 0;
     }
-    .btn {
-      padding: 12px 30px;
-      font-size: 0.9rem;
+    
+    .navbar-nav .nav-link::after {
+        left: 0;
+        bottom: 0;
     }
-  }
-
-  /* Adicione esta classe se quiser destacar o portfólio na navbar */
-.navbar-menu li:nth-child(3) a {
-  position: relative;
-}
-
-.navbar-menu li:nth-child(3) a::after {
-  content: "Novo!";
-  position: absolute;
-  top: -8px;
-  right: -25px;
-  background: var(--verde);
-  color: var(--preto);
-  font-size: 0.7rem;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 10px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* Estilo para links ativos na navbar */
-.navbar-menu a.active {
-  background: var(--verde);
-  color: var(--preto) !important;
-  border-radius: 30px;
-  padding: 8px 15px;
-}
-
-/* Melhoria nos inputs em todas as páginas */
-input, select, textarea {
-  background: rgba(50, 50, 50, 0.7) !important;
-  border: 1px solid rgba(34, 237, 11, 0.3) !important;
-  color: white !important;
-  border-radius: 8px !important;
-  padding: 12px 15px !important;
-}
-
-/* Estilos para o modal (compatibilidade) */
-.modal {
-    display: none;
-}
-
-/* Melhorias nos formulários */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--branco);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    background: rgba(50, 50, 50, 0.7);
-    border: 1px solid rgba(34, 237, 11, 0.3);
-    color: white;
-    border-radius: 8px;
+    
+    .navbar-nav .nav-link:hover::after,
+    .navbar-nav .nav-link.active::after {
+        width: 100%;
+    }
+    
+    .footer {
+        padding: 2rem 0 1rem;
+    }
 }

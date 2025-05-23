@@ -1,0 +1,231 @@
+/* ===== HERO DETALHE ===== */
+.hero-detalhe {
+    position: relative;
+    height: 70vh;
+    min-height: 600px;
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.tech-hero {
+    background-image: url('../assets/images/evento-tech.png');
+}
+
+.casamento-hero {
+    background-image: url('../assets/images/casamento.jpg');
+}
+
+.festival-hero {
+    background-image: url('../assets/images/evento-musical.jpg');
+}
+
+.hero-detalhe .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+.hero-detalhe .hero-content {
+    position: relative;
+    z-index: 2;
+    margin-top: 80px;
+}
+
+.event-badge {
+    display: inline-block;
+    background: var(--verde);
+    color: var(--preto);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-detalhe h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.event-meta {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.event-meta span {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+/* ===== SOBRE EVENTO ===== */
+.sobre-evento {
+    background-color: var(--preto);
+    color: var(--branco);
+}
+
+.sobre-evento h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.sobre-evento .lead {
+    font-size: 1.5rem;
+    color: var(--verde);
+    margin-bottom: 30px;
+}
+
+.event-details ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.event-details li {
+    margin-bottom: 12px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.event-details i {
+    color: var(--verde);
+    position: absolute;
+    left: 0;
+    top: 4px;
+    font-size: 1.2rem;
+}
+
+/* ===== GALERIA ===== */
+.galeria-evento {
+    background-color: var(--cinza-escuro);
+}
+
+.galeria-item {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.galeria-item img {
+    transition: transform 0.5s ease;
+}
+
+.galeria-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(34, 237, 11, 0.3);
+}
+
+.galeria-item:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== DEPOIMENTOS ===== */
+.depoimento-card {
+    background: var(--cinza-escuro);
+    border-radius: 10px;
+    padding: 40px;
+    position: relative;
+}
+
+.depoimento-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 5rem;
+    color: rgba(34, 237, 11, 0.2);
+    font-family: serif;
+    line-height: 1;
+}
+
+.depoimento-texto p {
+    font-size: 1.2rem;
+    font-style: italic;
+    position: relative;
+    z-index: 2;
+}
+
+.depoimento-autor {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.depoimento-autor img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 2px solid var(--verde);
+}
+
+.depoimento-autor h5 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.depoimento-autor p {
+    color: var(--verde);
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 992px) {
+    .hero-detalhe {
+        height: 60vh;
+        min-height: 500px;
+    }
+    
+    .hero-detalhe h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-detalhe {
+        height: 50vh;
+        min-height: 400px;
+    }
+    
+    .hero-detalhe h1 {
+        font-size: 2.5rem;
+    }
+    
+    .event-meta {
+        gap: 15px;
+    }
+    
+    .depoimento-card {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-detalhe {
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .hero-detalhe h1 {
+        font-size: 2rem;
+    }
+    
+    .event-meta span {
+        font-size: 0.9rem;
+    }
+}
