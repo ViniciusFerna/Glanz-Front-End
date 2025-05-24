@@ -82,6 +82,10 @@
     font-size: 0.9rem;
 }
 
+.text-light-expert {
+    color: rgba(255, 255, 255, 0.85); /* branco suave, ideal para fundo escuro */
+}
+
 /* ===== BUTTON STYLES ===== */
 .btn-login {
     background: var(--verde);

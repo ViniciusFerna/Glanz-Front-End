@@ -233,6 +233,10 @@
     transform: translateY(-3px);
 }
 
+.text-light-expert {
+    color: rgba(210, 210, 210, 0.85); /* branco suave, ideal para fundo escuro */
+}
+
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 992px) {
     .hero-sobre h1 {
