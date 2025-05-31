@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLANZ | Meu Perfil</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg top-navbar fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h1>GLANZ<span class="dot">.</span></h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sobre.html"><i class="fas fa-users"></i> Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="perfil.html" class="btn btn-login active"><i class="fas fa-user"></i> Perfil</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="profile-main py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <!-- Card do Perfil -->
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="assets/images/profile-placeholder.jpg" alt="Foto do perfil" class="profile-avatar" id="profileAvatar">
+                            <button class="btn-avatar-edit" onclick="document.getElementById('avatarInput').click()">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                        </div>
+                        
+                        <h2 class="profile-name" id="profileName">Carregando...</h2>
+                        <p class="profile-username" id="profileUsername">@username</p>
+                        
+                        <div class="profile-bio">
+                            <p id="profileBio">Carregando biografia...</p>
+                        </div>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="eventCount">0</span>
+                                <span class="stat-label">Eventos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="participantCount">0</span>
+                                <span class="stat-label">Participantes</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-edit-profile w-100" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fas fa-edit me-2"></i>Editar Perfil
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <!-- Abas do Perfil -->
+                    <ul class="nav nav-tabs profile-tabs" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">
+                                <i class="fas fa-info-circle me-2"></i>Informações
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab">
+                                <i class="fas fa-calendar-alt me-2"></i>Meus Eventos
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">
+                                <i class="fas fa-cog me-2"></i>Configurações
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <!-- Conteúdo das Abas -->
+                    <div class="tab-content profile-tab-content" id="profileTabsContent">
+                        <!-- Tab Informações -->
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="profile-info-section">
+                                <h4 class="section-title"><i class="fas fa-id-card me-2"></i>Dados Pessoais</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Nome Completo:</span>
+                                        <span class="info-value" id="infoNome">Carregando...</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">E-mail:</span>
+                                        <span class="info-value" id="infoEmail">carregando@email.com <span class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</span></span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Telefone:</span>
+                                        <span class="info-value" id="infoTelefone">--</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Localização:</span>
+                                        <span class="info-value" id="infoLocalizacao">--</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Biografia:</span>
+                                        <span class="info-value" id="infoBio">--</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Membro desde:</span>
+                                        <span class="info-value" id="infoMembroDesde">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-info-section mt-4">
+                                <h4 class="section-title"><i class="fas fa-shield-alt me-2"></i>Segurança</h4>
+                                <div class="security-items">
+                                    <div class="security-item">
+                                        <div class="security-icon">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                        <div class="security-content">
+                                            <h5>Senha</h5>
+                                            <p>Última alteração: <span id="senhaUltimaAlteracao">--</span></p>
+                                        </div>
+                                        <button class="btn btn-outline-verde btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                            Alterar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab Eventos -->
+                        <div class="tab-pane fade" id="events" role="tabpanel">
+                            <div class="profile-events">
+                                <h4 class="section-title"><i class="fas fa-calendar-check me-2"></i>Próximos Eventos</h4>
+                                <div class="event-list" id="proximosEventos">
+                                    <div class="text-center py-3">
+                                        <div class="spinner-border text-light" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 class="section-title mt-4"><i class="fas fa-history me-2"></i>Eventos Anteriores</h4>
+                                <div class="event-list" id="eventosAnteriores">
+                                    <div class="text-center py-3">
+                                        <div class="spinner-border text-light" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab Configurações -->
+                        <div class="tab-pane fade" id="settings" role="tabpanel">
+                            <div class="profile-settings">
+                                <h4 class="section-title"><i class="fas fa-user-cog me-2"></i>Preferências</h4>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h5>Tema do Site</h5>
+                                        <p>Escolha entre modo claro ou escuro</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                                            <label class="form-check-label" for="darkModeSwitch">Modo Escuro</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="account-actions mt-5">
+                                    <button class="btn btn-outline-danger" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Editar Perfil -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="mb-3">
+                            <label for="editNome" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="editNome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTelefone" class="form-label">Telefone</label>
+                            <input type="tel" class="form-control" id="editTelefone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLocalizacao" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="editLocalizacao">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBio" class="form-label">Biografia</label>
+                            <textarea class="form-control" id="editBio" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveProfileBtn">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Senha Atual</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Nova Senha</label>
+                            <input type="password" class="form-control" id="newPassword" required minlength="6">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="confirmPassword" required minlength="6">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="savePasswordBtn">Alterar Senha</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">
+                        <h2>GLANZ<span class="dot">.</span></h2>
+                        <p>Criando experiências que inspiram</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3>Links Rápidos</h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+                        <li class="nav-item"><a href="portfolio.html" class="nav-link">Portfólio</a></li>
+                        <li class="nav-item"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Conecte-se</h3>
+                    <div class="social-icons">
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p>&copy; 2024 GLANZ Eventos. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/perfil.js"></script>
+</body>
+</html>

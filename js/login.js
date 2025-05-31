@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             // Simular resposta da API
             if (email === 'admin@glanz.com' && password === '123456') {
-                // Login bem-sucedido - redirecionar para dashboard
-                window.location.href = 'dashboard.html';
+                // Login bem-sucedido - redirecionar para home
+                window.location.href = 'index.html';
             } else {
                 // Exibir erro
                 loginError.textContent = 'E-mail ou senha incorretos. Tente novamente.';

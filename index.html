@@ -18,7 +18,10 @@
             <a class="navbar-brand" href="index.html">
                 <h1>GLANZ<span class="dot">.</span></h1>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -36,8 +39,19 @@
                         <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
                     </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="login.html" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <div class="d-flex align-items-center">
+                    <!-- Botão Login/Logout -->
+                    <div id="authContainer">
+                        <a href="login.html" class="btn btn-login" id="authBtn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </div>
+                    <!-- Botão Perfil (inicialmente oculto) -->
+                    <div id="profileContainer" style="display: none; margin-left: 10px;">
+                        <a href="perfil.html" class="btn btn-user">
+                            <i class="fas fa-user"></i> Perfil
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -197,7 +211,7 @@
                 <div class="col-lg-8">
                     <h2>Pronto para <span class="highlight">criar algo incrível</span> juntos?</h2>
                     <p class="mt-4 mb-5">Entre em contato diretamente pelo WhatsApp</p>
-                    
+
                     <div class="d-flex flex-column flex-md-row justify-content-center gap-4">
                         <div class="contato-item">
                             <i class="fas fa-envelope fa-2x mb-3"></i>
@@ -213,8 +227,7 @@
                         </div>
                     </div>
 
-                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços" 
-                       class="btn btn-success btn-lg mt-5 px-5 py-3">
+                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços" class="btn btn-success btn-lg mt-5 px-5 py-3">
                         <i class="fab fa-whatsapp me-2"></i> Fale conosco pelo WhatsApp
                     </a>
                 </div>
@@ -266,6 +279,41 @@
             duration: 800,
             easing: 'ease-in-out'
         });
+
+        // Função para verificar login e atualizar a interface
+        function updateAuthUI() {
+            const authBtn = document.getElementById('authBtn');
+            const profileContainer = document.getElementById('profileContainer');
+            
+            // Verifica se o usuário está logado
+            const isLoggedIn = sessionStorage.getItem('Token') || localStorage.getItem('Token');
+            
+            if (isLoggedIn) {
+                // Usuário logado - mostra perfil e transforma login em logout
+                authBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+                authBtn.href = "#";
+                authBtn.onclick = function(e) {
+                    e.preventDefault();
+                    // Faz logout
+                    sessionStorage.removeItem('Token');
+                    localStorage.removeItem('Token');
+                    // Atualiza a interface
+                    updateAuthUI();
+                    // Redireciona para home
+                    window.location.href = 'index.html';
+                };
+                profileContainer.style.display = 'block';
+            } else {
+                // Usuário não logado - oculta perfil e mantém login normal
+                authBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                authBtn.href = "login.html";
+                authBtn.onclick = null;
+                profileContainer.style.display = 'none';
+            }
+        }
+
+        // Executa quando a página carrega
+        document.addEventListener('DOMContentLoaded', updateAuthUI);
     </script>
 </body>
 </html>
