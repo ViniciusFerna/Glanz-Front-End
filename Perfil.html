@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLANZ | Meu Perfil</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/perfil.css">
@@ -12,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg top-navbar fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -35,20 +33,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
                     </li>
+                    <li class="nav-item" id="navProfileItem"> 
+                        <a class="nav-link active" href="Perfil.html"><i class="fas fa-user"></i> Perfil</a>
+                    </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="perfil.html" class="btn btn-login active"><i class="fas fa-user"></i> Perfil</a>
+                <div class="d-flex align-items-center" id="authButtonWrapper">
+                    <a href="login.html" class="btn btn-login" id="authBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="profile-main py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <!-- Card do Perfil -->
                     <div class="profile-card">
                         <div class="profile-avatar-container">
                             <img src="assets/images/profile-placeholder.jpg" alt="Foto do perfil" class="profile-avatar" id="profileAvatar">
@@ -83,29 +84,16 @@
                 </div>
                 
                 <div class="col-lg-8">
-                    <!-- Abas do Perfil -->
                     <ul class="nav nav-tabs profile-tabs" id="profileTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">
+                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-selected="true">
                                 <i class="fas fa-info-circle me-2"></i>Informações
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab">
-                                <i class="fas fa-calendar-alt me-2"></i>Meus Eventos
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">
-                                <i class="fas fa-cog me-2"></i>Configurações
-                            </button>
-                        </li>
-                    </ul>
+                        </ul>
                     
-                    <!-- Conteúdo das Abas -->
                     <div class="tab-content profile-tab-content" id="profileTabsContent">
-                        <!-- Tab Informações -->
-                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                             <div class="profile-info-section">
                                 <h4 class="section-title"><i class="fas fa-id-card me-2"></i>Dados Pessoais</h4>
                                 <div class="info-grid">
@@ -152,54 +140,21 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tab Eventos -->
-                        <div class="tab-pane fade" id="events" role="tabpanel">
-                            <div class="profile-events">
-                                <h4 class="section-title"><i class="fas fa-calendar-check me-2"></i>Próximos Eventos</h4>
-                                <div class="event-list" id="proximosEventos">
-                                    <div class="text-center py-3">
-                                        <div class="spinner-border text-light" role="status">
-                                            <span class="visually-hidden">Carregando...</span>
+
+                                <h4 class="section-title mt-4 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Zona de Perigo</h4>
+                                <div class="security-items">
+                                    <div class="security-item bg-danger-subtle border border-danger">
+                                        <div class="security-icon bg-danger-subtle border border-danger">
+                                            <i class="fas fa-user-times text-danger"></i>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <h4 class="section-title mt-4"><i class="fas fa-history me-2"></i>Eventos Anteriores</h4>
-                                <div class="event-list" id="eventosAnteriores">
-                                    <div class="text-center py-3">
-                                        <div class="spinner-border text-light" role="status">
-                                            <span class="visually-hidden">Carregando...</span>
+                                        <div class="security-content">
+                                            <h5 class="text-danger">Excluir Conta</h5>
+                                            <p class="text-danger">Esta ação é irreversível. Todos os seus dados serão apagados.</p>
                                         </div>
+                                        <button class="btn btn-danger btn-sm" id="deleteAccountBtn">
+                                            <i class="fas fa-trash-alt"></i> Excluir
+                                        </button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tab Configurações -->
-                        <div class="tab-pane fade" id="settings" role="tabpanel">
-                            <div class="profile-settings">
-                                <h4 class="section-title"><i class="fas fa-user-cog me-2"></i>Preferências</h4>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h5>Tema do Site</h5>
-                                        <p>Escolha entre modo claro ou escuro</p>
-                                    </div>
-                                    <div class="setting-control">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                                            <label class="form-check-label" for="darkModeSwitch">Modo Escuro</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="account-actions mt-5">
-                                    <button class="btn btn-outline-danger" id="logoutBtn">
-                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +164,6 @@
         </div>
     </main>
 
-    <!-- Modal Editar Perfil -->
     <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -245,7 +199,6 @@
         </div>
     </div>
 
-    <!-- Modal Alterar Senha -->
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -277,7 +230,6 @@
         </div>
     </div>
 
-    <!-- Rodapé -->
     <footer class="footer py-5">
         <div class="container">
             <div class="row">
@@ -312,8 +264,11 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/perfil.js"></script>
-</body>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script src="js/utils.js"></script> 
+    <script src="js/auth.js"></script>
+    
+    <script src="js/perfil.js"></script> </body>
 </html>

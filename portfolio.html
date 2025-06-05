@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
 </head>
+
 <body>
-    <!-- Navbar (idêntico às outras páginas) -->
-    <nav class="navbar navbar-expand-lg top-navbar fixed-top">
+    <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg top-navbar fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <h1>GLANZ<span class="dot">.</span></h1>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -31,14 +36,19 @@
                         <a class="nav-link" href="sobre.html"><i class="fas fa-users"></i> Sobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a>
+                        <a class="nav-link" href="portfolio.html"><i class="fas fa-briefcase"></i> Portfólio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
                     </li>
+                    <li class="nav-item" id="navProfileItem" style="display: none;">
+                        <a class="nav-link" href="Perfil.html"><i class="fas fa-user"></i> Perfil</a>
+                    </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="login.html" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <div class="d-flex align-items-center" id="authButtonWrapper">
+                    <a href="login.html" class="btn btn-login" id="authBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
                 </div>
             </div>
         </div>
@@ -100,7 +110,8 @@
                                 <span class="badge bg-verde">Corporativo</span>
                                 <span class="badge bg-dark">Tecnologia</span>
                             </div>
-                            <a href="portfolio-detalhe-tech.html" class="btn btn-sm btn-outline-verde mt-3">Ver Detalhes</a>
+                            <a href="portfolio-detalhe-tech.html" class="btn btn-sm btn-outline-verde mt-3">Ver
+                                Detalhes</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +127,8 @@
                                     <span><i class="fas fa-users"></i> 300 convidados</span>
                                     <span><i class="fas fa-map-marker-alt"></i> Rio de Janeiro</span>
                                 </div>
-                                <a href="assets/images/evento-lancamento.jpeg" class="portfolio-zoom" data-lg-size="1600-1067">
+                                <a href="assets/images/evento-lancamento.jpeg" class="portfolio-zoom"
+                                    data-lg-size="1600-1067">
                                     <i class="fas fa-expand"></i>
                                 </a>
                             </div>
@@ -127,7 +139,8 @@
                                 <span class="badge bg-verde">Social</span>
                                 <span class="badge bg-dark">Luxo</span>
                             </div>
-                            <a href="portfolio-detalhe-casamento.html" class="btn btn-sm btn-outline-verde mt-3">Ver Detalhes</a>
+                            <a href="portfolio-detalhe-casamento.html" class="btn btn-sm btn-outline-verde mt-3">Ver
+                                Detalhes</a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +156,8 @@
                                     <span><i class="fas fa-users"></i> 5.000+ participantes</span>
                                     <span><i class="fas fa-map-marker-alt"></i> Bahia</span>
                                 </div>
-                                <a href="assets/images/evento-musical.jpg" class="portfolio-zoom" data-lg-size="1600-1067">
+                                <a href="assets/images/evento-musical.jpg" class="portfolio-zoom"
+                                    data-lg-size="1600-1067">
                                     <i class="fas fa-expand"></i>
                                 </a>
                             </div>
@@ -154,7 +168,8 @@
                                 <span class="badge bg-verde">Cultural</span>
                                 <span class="badge bg-dark">Música</span>
                             </div>
-                            <a href="portfolio-detalhe-festival.html" class="btn btn-sm btn-outline-verde mt-3">Ver Detalhes</a>
+                            <a href="portfolio-detalhe-festival.html" class="btn btn-sm btn-outline-verde mt-3">Ver
+                                Detalhes</a>
                         </div>
                     </div>
                 </div>
@@ -207,6 +222,10 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="js/auth.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="js/portfolio.js"></script>
@@ -219,7 +238,7 @@
         });
 
         // Inicializa Isotope para filtragem
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const iso = new Isotope('.portfolio-container', {
                 itemSelector: '.portfolio-item',
                 layoutMode: 'fitRows'
@@ -228,7 +247,7 @@
             // Filtro por categoria
             const filterButtons = document.querySelectorAll('.btn-categoria');
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Remove classe active de todos os botões
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     // Adiciona classe active ao botão clicado
@@ -241,4 +260,5 @@
         });
     </script>
 </body>
+
 </html>

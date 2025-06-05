@@ -22,7 +22,7 @@ body {
     padding-top: 70px; /* Compensa a navbar fixa */
 }
 
-/* ===== NAVBAR MINIMALISTA ===== */
+/* ===== NAVBAR ===== */
 .top-navbar {
     position: fixed;
     width: 100%;
@@ -99,7 +99,7 @@ body {
     width: calc(100% - 32px);
 }
 
-/* Botão de Login Otimizado */
+/* Botão de Login */
 .btn-login {
     background: var(--verde);
     color: var(--branco) !important;

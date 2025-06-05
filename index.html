@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLANZ | Experiências Memoráveis em Eventos</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
@@ -12,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar Minimalista Fixa -->
     <nav class="navbar navbar-expand-lg top-navbar fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -27,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html"><i class="fas fa-home"></i> Home</a>
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sobre.html"><i class="fas fa-users"></i> Sobre</a>
@@ -38,26 +36,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
                     </li>
+                    <li class="nav-item" id="navProfileItem" style="display: none;">
+                        <a class="nav-link" href="Perfil.html"><i class="fas fa-user"></i> Perfil</a>
+                    </li>
                 </ul>
-                <div class="d-flex align-items-center">
-                    <!-- Botão Login/Logout -->
-                    <div id="authContainer">
-                        <a href="login.html" class="btn btn-login" id="authBtn">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                    </div>
-                    <!-- Botão Perfil (inicialmente oculto) -->
-                    <div id="profileContainer" style="display: none; margin-left: 10px;">
-                        <a href="perfil.html" class="btn btn-user">
-                            <i class="fas fa-user"></i> Perfil
-                        </a>
-                    </div>
+                <div class="d-flex align-items-center" id="authButtonWrapper">
+                    <a href="login.html" class="btn btn-login" id="authBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section com Imagem -->
     <header class="hero">
         <div class="hero-image"></div>
         <div class="hero-overlay"></div>
@@ -82,7 +73,6 @@
         </div>
     </header>
 
-    <!-- Seção de Diferenciais -->
     <section class="diferenciais py-5">
         <div class="container">
             <div class="section-header text-center mb-5">
@@ -136,7 +126,6 @@
         </div>
     </section>
 
-    <!-- Seção Portfólio Atualizada -->
     <section class="portfolio-showcase py-5">
         <div class="container">
             <div class="section-header text-center mb-5">
@@ -204,7 +193,6 @@
         </div>
     </section>
 
-    <!-- Seção de Contato -->
     <section id="contato" class="contato py-5">
         <div class="container text-center">
             <div class="row justify-content-center">
@@ -235,7 +223,6 @@
         </div>
     </section>
 
-    <!-- Rodapé -->
     <footer class="footer py-5">
         <div class="container">
             <div class="row">
@@ -265,55 +252,14 @@
                 </div>
             </div>
             <div class="text-center mt-5">
-                <p>&copy; 2024 GLANZ Eventos. Todos os direitos reservados.</p>
+                <p>© 2024 GLANZ Eventos. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/home.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out'
-        });
-
-        // Função para verificar login e atualizar a interface
-        function updateAuthUI() {
-            const authBtn = document.getElementById('authBtn');
-            const profileContainer = document.getElementById('profileContainer');
-            
-            // Verifica se o usuário está logado
-            const isLoggedIn = sessionStorage.getItem('Token') || localStorage.getItem('Token');
-            
-            if (isLoggedIn) {
-                // Usuário logado - mostra perfil e transforma login em logout
-                authBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-                authBtn.href = "#";
-                authBtn.onclick = function(e) {
-                    e.preventDefault();
-                    // Faz logout
-                    sessionStorage.removeItem('Token');
-                    localStorage.removeItem('Token');
-                    // Atualiza a interface
-                    updateAuthUI();
-                    // Redireciona para home
-                    window.location.href = 'index.html';
-                };
-                profileContainer.style.display = 'block';
-            } else {
-                // Usuário não logado - oculta perfil e mantém login normal
-                authBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                authBtn.href = "login.html";
-                authBtn.onclick = null;
-                profileContainer.style.display = 'none';
-            }
-        }
-
-        // Executa quando a página carrega
-        document.addEventListener('DOMContentLoaded', updateAuthUI);
-    </script>
+    <script src="js/auth.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>

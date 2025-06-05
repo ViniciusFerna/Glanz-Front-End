@@ -27,7 +27,7 @@
     color: var(--verde);
     text-align: center;
     width: 100%;
-    margin: 0 0 70px 0; /* Espaçamento aumentado */
+    margin: 0 0 70px 0;
     letter-spacing: 3px;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     padding-bottom: 10px;

@@ -85,7 +85,7 @@
 }
 
 .text-light-expert {
-    color: rgba(255, 255, 255, 0.85); /* branco suave, ideal para fundo escuro */
+    color: rgba(255, 255, 255, 0.85);
 }
 
 
@@ -101,7 +101,7 @@
     }
 }
 
-/* ===== SEÇÃO PORTFÓLIO ATUALIZADA ===== */
+/* ===== SEÇÃO PORTFÓLIO ===== */
 .portfolio-showcase {
     background-color: var(--preto);
     position: relative;

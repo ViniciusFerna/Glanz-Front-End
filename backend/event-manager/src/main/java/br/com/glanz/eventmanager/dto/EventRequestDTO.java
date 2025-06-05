@@ -1,8 +1,9 @@
-package br.com.glanz.eventmanager.model;
+package br.com.glanz.eventmanager.dto;
 
 import br.com.glanz.eventmanager.model.enums.EventStatus;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email; // Importar Email
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,16 +11,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "events")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class EventRequestDTO {
     @NotBlank(message = "Título é obrigatório")
     @Size(max = 100, message = "Título deve ter no máximo 100 caracteres")
     private String title;
@@ -31,21 +26,16 @@ public class Event {
     @Size(max = 200, message = "Localização deve ter no máximo 200 caracteres")
     private String location;
 
-    @Column(name = "event_date")
+    @NotNull(message = "Data do evento é obrigatória")
     private LocalDateTime eventDate;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Status do evento é obrigatório")
     private EventStatus status;
 
     private String imageUrl;
 
-    // ALTERAÇÃO AQUI: FetchType.EAGER
-    @ManyToOne(fetch = FetchType.EAGER) // Carrega o criador junto com o evento
-    @JoinColumn(name = "creator_user_id", nullable = false)
-    private User creator;
-
-    // ALTERAÇÃO AQUI: FetchType.EAGER
-    @ManyToOne(fetch = FetchType.EAGER) // Carrega o cliente contratante junto com o evento
-    @JoinColumn(name = "contracting_client_id")
-    private User contractingClient;
+    // NOVO CAMPO: Email do cliente contratante (opcional no DTO de requisição)
+    @Email(message = "Email do cliente contratante inválido")
+    @Size(max = 100, message = "Email do cliente contratante deve ter no máximo 100 caracteres")
+    private String contractingClientEmail; // Para o ADMIN enviar o email do cliente
 }
