@@ -1,5 +1,33 @@
 // URL base da API (centralizada para facilitar a alteração)
-const API_BASE_URL = 'http://localhost:8080';
+window.API_BASE_URL = 'http://localhost:8080'; // Ensuring this is globally accessible
+
+// Função showToast global para exibir notificações na tela
+// Esta função cria um elemento de toast e o exibe por um tempo determinado
+window.showToast = function(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.className = `toast-message ${isError ? 'error' : ''}`; // Adiciona classe 'error' para toasts de erro
+    toast.innerHTML = `
+        <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+
+    // Adiciona a classe 'show' após um pequeno delay para ativar a transição CSS
+    setTimeout(() => { 
+        toast.classList.add('show'); 
+    }, 10);
+
+    // Remove o toast após 3 segundos
+    setTimeout(() => { 
+        toast.classList.remove('show'); 
+        // Espera a transição de saída terminar antes de remover o elemento do DOM
+        setTimeout(() => { 
+            if (toast.parentNode) { // Verifica se o elemento ainda está no DOM antes de tentar remover
+                document.body.removeChild(toast); 
+            }
+        }, 300); // Tempo da transição de saída no CSS
+    }, 3000); // Tempo total que o toast fica visível
+};
 
 // Função para verificar e obter dados do token JWT
 function parseJwt (token) {
@@ -23,10 +51,15 @@ function getToken() {
 
 // Função para salvar o token
 function saveToken(token, rememberMe) {
+    // Lógica ajustada conforme sua solicitação:
+    // Se "Lembrar de mim" (rememberMe) estiver marcado, salva no sessionStorage.
+    // Caso contrário, salva no localStorage.
     if (rememberMe) {
-        localStorage.setItem('token', token);
-    } else {
         sessionStorage.setItem('token', token);
+        localStorage.removeItem('token'); // Garante que não esteja em ambos
+    } else {
+        localStorage.setItem('token', token);
+        sessionStorage.removeItem('token'); // Garante que não esteja em ambos
     }
 }
 
@@ -42,7 +75,7 @@ function getUserRole() {
     if (token) {
         const decodedToken = parseJwt(token);
         if (decodedToken && decodedToken.exp * 1000 > Date.now()) { // Verifica se o token não expirou
-            return decodedToken.role;
+            return decodedToken.roles; // Usa 'roles' do JWT
         } else {
             removeToken(); // Remove token expirado
             return null;
@@ -56,7 +89,7 @@ function getUserId() {
     if (token) {
         const decodedToken = parseJwt(token);
         if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
-            return decodedToken.userId;
+            return decodedToken.sub; // Usa 'sub' do JWT (que é o ID do user)
         }
     }
     return null;
@@ -66,8 +99,9 @@ function getUserName() {
     const token = getToken();
     if (token) {
         const decodedToken = parseJwt(token);
+        // Assumindo que 'userName' é um claim no token, caso contrário, ajuste
         if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
-            return decodedToken.userName;
+            return decodedToken.userName; // Certifique-se que o backend adicione esta claim
         }
     }
     return null;
@@ -78,7 +112,7 @@ function getUserEmail() {
     if (token) {
         const decodedToken = parseJwt(token);
         if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
-            return decodedToken.sub; // 'sub' é o subject (email) no JWT
+            return decodedToken.email; // Usa 'email' do JWT
         }
     }
     return null;
@@ -89,8 +123,6 @@ function updateAuthUI() {
     const authBtn = document.getElementById('authBtn'); // Pode ser null em certas páginas
     const navProfileItem = document.getElementById('navProfileItem'); // Pode ser null em certas páginas
 
-    // Se os elementos da navbar de autenticação não existirem, não faça nada.
-    // Isso é útil para páginas como login.html e cadastro.html que têm navbars diferentes.
     if (!authBtn || !navProfileItem) {
         return; 
     }
@@ -109,7 +141,7 @@ function updateAuthUI() {
 
         navProfileItem.style.display = 'block';
         const profileLink = navProfileItem.querySelector('a');
-        if (profileLink) { // Verificação adicional para garantir que o link existe
+        if (profileLink) { 
             profileLink.href = 'Perfil.html';
         }
 
@@ -125,25 +157,19 @@ function updateAuthUI() {
 
 // Função para ativar o link da navbar com base na URL
 function highlightActiveNavLink() {
-    const currentPath = window.location.pathname.split('/').pop(); // Obtém o nome do arquivo (ex: "index.html", "eventos.html")
+    const currentPath = window.location.pathname.split('/').pop(); 
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
     navLinks.forEach(link => {
-        // Remove a classe 'active' de todos os links primeiro
         link.classList.remove('active');
 
-        // Obtém o nome do arquivo do href do link
         const linkPath = link.getAttribute('href').split('/').pop();
 
-        // Compara o nome do arquivo atual com o nome do arquivo do link
-        // Se a página for a home (index.html ou apenas "/"), ative a home
         if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
             link.classList.add('active');
         }
     });
 
-    // Ajuste específico para o link "Perfil" se ele estiver ativo
-    // O auth.js já gerencia a visibilidade, mas podemos reforçar a ativação aqui
     const navProfileItem = document.getElementById('navProfileItem');
     if (navProfileItem && navProfileItem.style.display !== 'none') {
         const profileLink = navProfileItem.querySelector('a');
@@ -154,7 +180,6 @@ function highlightActiveNavLink() {
         }
     }
 }
-
 
 // Inicializa o AOS e as funções da navbar quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', function() {

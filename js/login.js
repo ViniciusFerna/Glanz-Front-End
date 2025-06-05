@@ -1,6 +1,10 @@
+// js/login.js
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Importa as funções do auth.js (ou assume que auth.js já foi carregado globalmente)
-    // const { API_BASE_URL, saveToken, getToken } = window; // Assumindo que auth.js exporta
+    // API_BASE_URL e showToast são assumidos como globais via js/utils.js
+    const API_BASE_URL = window.API_BASE_URL; // Usando a variável global
+    const showToast = window.showToast;       // Usando a função global
+    const saveToken = window.saveToken;       // Usando a função global
     
     // Elementos do DOM
     const loginForm = document.getElementById('loginForm');
@@ -11,29 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginError = document.getElementById('loginError');
     const rememberMeCheckbox = document.getElementById('rememberMe'); // Captura o checkbox
 
-    // URLs da API (usando a constante global de auth.js)
-    const API_BASE_URL = 'http://localhost:8080'; // Certifique-se de que esta linha exista em auth.js
-
-    // Função para exibir toast (copie da sua função global ou de eventos.js/perfil.js)
-    function showToast(message, isError = false) {
-        const toast = document.createElement('div');
-        toast.className = `toast-message ${isError ? 'error' : ''}`;
-        toast.innerHTML = `
-            <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
-            <span>${message}</span>
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.classList.add('show');
-        }, 10);
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(toast);
-            }, 300);
-        }, 3000);
-    }
-    
     // Alternar visibilidade da senha
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', function() {
@@ -51,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Submissão do formulário de login (AGORA COM REQUISIÇÃO REAL AO BACKEND)
+    // Submissão do formulário de login
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -67,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const rememberMe = rememberMeCheckbox.checked; // Pega o estado do checkbox
 
             try {
-                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                // CORREÇÃO AQUI: URL ajustada para /user/login
+                const response = await fetch(`${API_BASE_URL}/user/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -77,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    saveToken(data.token, rememberMe); // Salva o token
+                    saveToken(data.token, rememberMe); // Salva o token com a lógica do rememberMe
+                    
                     showToast('Login realizado com sucesso!');
                     window.location.href = 'index.html'; // Redireciona para home
                 } else {
@@ -96,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Submissão do formulário de recuperação de senha (simulado, como antes)
+    // Submissão do formulário de recuperação de senha (simulado)
     document.getElementById('forgotPasswordForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const email = document.getElementById('recoveryEmail').value;
@@ -107,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         forgotPasswordModal.hide();
     });
     
-    // Validação em tempo real (manter)
+    // Validação em tempo real
     document.getElementById('email').addEventListener('input', function() {
         if (this.validity.typeMismatch) {
             this.setCustomValidity('Por favor, insira um e-mail válido');

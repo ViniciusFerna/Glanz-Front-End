@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLANZ | Nossos Eventos</title>
+    <title>GLANZ | Detalhes do Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/eventos.css">
+    <link rel="stylesheet" href="css/detalhes-evento.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -50,96 +50,103 @@
         </div>
     </nav>
 
-    <header class="events-hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 data-aos="fade-right"><span class="highlight">Lista de</span> Eventos</h1>
-                    <p class="hero-subtitle" data-aos="fade-right" data-aos-delay="100">Visualize todos os seus eventos em um só lugar — Planejados para transformar momentos em memórias inesquecíveis.</p>
-                </div>
-                <div class="col-lg-4 text-lg-end" data-aos="fade-left">
-                    <button id="add-event-btn" class="btn btn-primary">
-                        <i class="fas fa-plus me-2"></i> Novo Evento
-                    </button>
-                </div>
+    <header class="event-details-hero">
+        <div class="container text-center">
+            <h1 id="event-details-title" data-aos="fade-up">Carregando...</h1>
+            <p class="hero-subtitle" id="event-details-location" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-map-marker-alt"></i> Carregando...</p>
+            <p class="hero-subtitle" id="event-details-date" data-aos="fade-up" data-aos-delay="150"><i class="far fa-calendar-alt"></i> Carregando...</p>
+            <span class="event-details-status" id="event-details-status" data-aos="fade-up" data-aos-delay="200"></span>
+            
+            <div class="mt-4" id="assignCreatorButtonWrapper" data-aos="fade-up" data-aos-delay="250">
+                <button id="assignCreatorBtn" class="btn btn-secondary" style="display: none;">
+                    <i class="fas fa-user-plus me-2"></i> Adicionar Criador do Evento
+                </button>
+            </div>
+
+            <div class="mt-3" id="manageGuestsButtonWrapper" style="display: none;">
+                <button id="manageGuestsBtn" class="btn btn-primary">
+                    <i class="fas fa-users me-2"></i> Gerenciar Convidados
+                </button>
             </div>
         </div>
     </header>
 
-    <section class="events-section py-5">
+    <section class="event-details-section py-5">
         <div class="container">
-            <div class="events-filter mb-5" data-aos="fade-up">
-                <div class="row align-items-center">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                        <h3 class="filter-title">Filtrar Eventos</h3>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="d-flex flex-wrap gap-2">
-                            <button class="filter-btn active" data-filter="all">Todos</button>
-                            <button class="filter-btn" data-filter="PLANEJADO">Próximos</button>
-                            <button class="filter-btn" data-filter="EM_ANDAMENTO">Em Andamento</button>
-                            <button class="filter-btn" data-filter="CONCLUIDO">Realizados</button>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="details-card" data-aos="fade-up">
+                        <h2 class="section-title mb-4">Sobre o Evento</h2>
+                        <p id="event-details-description" class="details-text">Carregando descrição...</p>
+                        <div class="d-flex justify-content-end mt-4">
+                            <a href="eventos.html" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i> Voltar para Eventos</a>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="events-grid" id="events-container">
-                <div class="text-center py-5">
-                    <div class="spinner-border text-light" role="status">
-                        <span class="visually-hidden">Carregando...</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="assignCreatorModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Adicionar Novo Evento</h5>
+                    <h5 class="modal-title" id="assignCreatorModalTitle">Vincular Evento a Usuário</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="eventForm">
-                        <input type="hidden" id="eventId">
+                    <form id="assignCreatorForm">
                         <div class="mb-3">
-                            <label for="eventTitle" class="form-label">Título*</label>
-                            <input type="text" class="form-control" id="eventTitle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="eventDescription" class="form-label">Descrição</label>
-                            <textarea class="form-control" id="eventDescription" rows="3"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="eventDate" class="form-label">Data e Hora*</label>
-                                <input type="datetime-local" class="form-control" id="eventDate" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="eventLocation" class="form-label">Localização*</label>
-                                <input type="text" class="form-control" id="eventLocation" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="eventStatus" class="form-label">Status*</label>
-                            <select class="form-select" id="eventStatus" required>
-                                <option value="PLANEJADO">Planejado</option>
-                                <option value="EM_ANDAMENTO">Em Andamento</option>
-                                <option value="CONCLUIDO">Concluído</option>
-                                <option value="CANCELADO">Cancelado</option>
-                            </select>
+                            <label for="creatorEmail" class="form-label">Email do Cliente</label>
+                            <input type="email" class="form-control" id="creatorEmail" placeholder="email@cliente.com" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveEventBtn">Salvar Evento</button>
+                    <button type="button" class="btn btn-primary" id="saveCreatorBtn">Vincular Cliente</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="guestManagementModal" tabindex="-1" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guestManagementModalTitle">Gerenciar Convidados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Adicionar Novo Convidado</h6>
+                    <form id="addGuestForm" class="mb-4">
+                        <div class="mb-3">
+                            <label for="guestName" class="form-label">Nome do Convidado*</label>
+                            <input type="text" class="form-control" id="guestName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="guestEmail" class="form-label">Email do Convidado*</label>
+                            <input type="email" class="form-control" id="guestEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="addGuestBtn">
+                            <i class="fas fa-user-plus me-2"></i> Adicionar Convidado
+                        </button>
+                    </form>
+
+                    <h6>Convidados do Evento</h6>
+                    <ul id="guestsList" class="list-group">
+                        <li class="list-group-item bg-dark text-white-50">
+                            Nenhum convidado adicionado ainda.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="footer py-5">
         <div class="container">
@@ -177,9 +184,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
     <script src="js/auth.js"></script>
-    <script src="js/eventos.js"></script>
+    <script src="js/detalhes-evento.js"></script>
     <script>
         AOS.init({
             duration: 800,

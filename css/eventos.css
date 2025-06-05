@@ -66,9 +66,12 @@
 .event-card {
     background-color: var(--cinza-escuro);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: hidden; 
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex; 
+    flex-direction: column; 
+    cursor: pointer; 
 }
 
 .event-card:hover {
@@ -77,14 +80,20 @@
     border-color: var(--verde);
 }
 
-.event-image {
+.event-image { 
+    background: var(--cinza-escuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 200px; 
 }
 
 .event-content {
     padding: 1.5rem;
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 1; 
 }
 
 .event-title {
@@ -92,6 +101,14 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--branco);
+    /* --- NOVAS REGRAS PARA TRUNCAGEM DO TÍTULO --- */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita o título a 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4; /* Ajuste a altura da linha para melhor leitura */
+    max-height: calc(1.4em * 2); /* Garante a altura máxima para 2 linhas */
 }
 
 .event-date {
@@ -116,15 +133,26 @@
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
     color: rgba(255, 255, 255, 0.7);
+    /* --- NOVAS REGRAS PARA TRUNCAGEM DA DESCRIÇÃO --- */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita a descrição a 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3; /* Ajuste a altura da linha para melhor leitura */
+    max-height: calc(1.3em * 2); /* Garante a altura máxima para 2 linhas */
+    flex-grow: 1; 
 }
 
 .event-status {
-    display: inline-block;
+    display: inline-block; 
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    text-align: center; 
+    white-space: nowrap; /* Garante que o texto não quebre para a próxima linha */
 }
 
 .status-PLANEJADO {
@@ -154,12 +182,22 @@
 .event-actions {
     display: flex;
     gap: 0.8rem;
+    margin-top: auto; 
 }
 
 .event-actions .btn {
     flex: 1;
     font-size: 0.85rem;
     padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.event-actions .btn i {
+    margin-right: 0;
 }
 
 /* Modal */
@@ -192,20 +230,6 @@
     border-color: var(--verde);
     color: var(--branco);
     box-shadow: 0 0 0 0.25rem rgba(34, 237, 11, 0.25);
-}
-
-/* Centraliza o texto nos botões de ação */
-.event-actions .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    text-align: center;
-}
-
-/* Garante que os ícones e textos fiquem alinhados */
-.event-actions .btn i {
-    margin-right: 0;
 }
 
 /* Responsividade */

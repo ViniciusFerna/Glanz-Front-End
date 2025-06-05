@@ -1,86 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    const API_BASE_URL = 'http://localhost:8080'; 
-
-    // Referências a funções de auth.js. Se auth.js globaliza, 'window.' é opcional mas claro.
+    const API_BASE_URL = window.API_BASE_URL; // Usando a variável global
+    // Referências a funções de auth.js, agora globais
     const getToken = window.getToken; 
-    const getUserRole = window.getUserRole;
-    const removeToken = window.removeToken; // Para logout e erros de autenticação
-    
-    function showToast(message, isError = false) {
-        const toast = document.createElement('div');
-        toast.className = `toast-message ${isError ? 'error' : ''}`;
-        toast.innerHTML = `
-            <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
-            <span>${message}</span>
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => { toast.classList.add('show'); }, 10);
-        setTimeout(() => { 
-            toast.classList.remove('show'); 
-            setTimeout(() => { document.body.removeChild(toast); }, 300);
-        }, 3000);
-    }
+    const getUserId = window.getUserId; 
+    const removeToken = window.removeToken; 
+    const showToast = window.showToast; 
 
     // Elementos do DOM
-    const avatarInput = document.getElementById('avatarInput');
     const profileAvatar = document.getElementById('profileAvatar');
     const editProfileForm = document.getElementById('editProfileForm');
-    const changePasswordForm = document.getElementById('changePasswordForm');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
-    const savePasswordBtn = document.getElementById('savePasswordBtn');
     const deleteAccountBtn = document.getElementById('deleteAccountBtn'); 
 
     // Chamada inicial para carregar os dados do usuário ao carregar a página
-    loadUserData(); // <--- VERIFIQUE SE ESTA LINHA ESTÁ PRESENTE E É CHAMADA NO INÍCIO DO DOMContentLoaded
+    loadUserData();
 
-
-    // Funções auxiliares de formatação de data
+    // Funções auxiliares de formatação de data (mantidas)
     function formatDate(dateString) {
         if (!dateString) return '--';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
-    // Upload de avatar
-    if (avatarInput) {
-        avatarInput.addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const token = getToken();
-                if (!token) {
-                    showToast('Você precisa estar logado para atualizar seu avatar.', true);
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                try {
-                    const formData = new FormData();
-                    formData.append('file', file);
-                    
-                    const response = await fetch(`${API_BASE_URL}/api/users/me/avatar`, {
-                        method: 'POST', 
-                        headers: {
-                            'Authorization': 'Bearer ' + token
-                        },
-                        body: formData
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json(); 
-                        profileAvatar.src = data.avatarUrl || 'assets/images/profile-placeholder.jpg';
-                        showToast('Avatar atualizado com sucesso!');
-                    } else {
-                        const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
-                        throw new Error(errorData.message || 'Falha ao atualizar avatar');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    showToast('Erro ao atualizar avatar: ' + error.message, true);
-                }
-            }
-        });
-    }
+    // --- FUNCIONALIDADES REMOVIDAS OU COM AVISOS (Reafirmando) ---
+    // Upload de avatar: O backend não possui o endpoint para isso. Removido.
+    // Alterar senha (com currentPassword): O backend não possui o endpoint específico para isso. Removido.
 
     // Editar perfil - Abrir modal com dados atuais
     const editProfileModal = document.getElementById('editProfileModal');
@@ -88,8 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
         editProfileModal.addEventListener('show.bs.modal', function() {
             document.getElementById('editNome').value = document.getElementById('infoNome').textContent === 'Carregando...' ? '' : document.getElementById('infoNome').textContent;
             document.getElementById('editTelefone').value = document.getElementById('infoTelefone').textContent === '--' ? '' : document.getElementById('infoTelefone').textContent;
-            document.getElementById('editLocalizacao').value = document.getElementById('infoLocalizacao').textContent === '--' ? '' : document.getElementById('infoLocalizacao').textContent;
-            document.getElementById('editBio').value = document.getElementById('infoBio').textContent === '--' ? '' : document.getElementById('infoBio').textContent;
+            document.getElementById('editEmail').value = document.getElementById('infoEmail').textContent === '--' ? '' : document.getElementById('infoEmail').textContent;
+            // Para 'gender', assuma que você tem um campo 'editGender' no HTML (select, radio).
+            // document.getElementById('editGender').value = document.getElementById('infoGender').textContent === '--' ? '' : document.getElementById('infoGender').textContent;
         });
     }
 
@@ -97,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (saveProfileBtn) {
         saveProfileBtn.addEventListener('click', async function() {
             const token = getToken();
-            if (!token) {
+            const userId = getUserId(); 
+            
+            if (!token || !userId) {
                 showToast('Você precisa estar logado para atualizar seu perfil.', true);
                 window.location.href = 'login.html';
                 return;
@@ -105,13 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const formData = {
                 name: document.getElementById('editNome').value, 
+                email: document.getElementById('editEmail').value,
+                password: null, // Deixando null, pois a alteração de senha deve ser separada ou tratada de outra forma
                 phone: document.getElementById('editTelefone').value,
-                location: document.getElementById('editLocalizacao').value,
-                bio: document.getElementById('editBio').value
+                // Assumindo que 'editGender' é um campo no seu HTML
+                gender: document.getElementById('editGender')?.value || null 
             };
             
             try {
-                const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+                // CORREÇÃO AQUI: URL ajustada para /user/{id}
+                const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -121,8 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 if (response.ok) {
-                    const data = await response.json(); 
-                    updateProfileUI(data); 
+                    await loadUserData(); 
                     showToast('Perfil atualizado com sucesso!');
                     
                     const modal = bootstrap.Modal.getInstance(editProfileModal);
@@ -134,58 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (error) {
                 console.error('Error:', error);
                 showToast('Erro ao atualizar perfil: ' + error.message, true);
-            }
-        });
-    }
-
-    // Alterar senha
-    if (savePasswordBtn) {
-        savePasswordBtn.addEventListener('click', async function() {
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (newPassword !== confirmPassword) {
-                showToast('As senhas não coincidem', true);
-                return;
-            }
-            if (newPassword.length < 8) {
-                showToast('A nova senha deve ter no mínimo 8 caracteres.', true);
-                return;
-            }
-
-            const token = getToken();
-            if (!token) {
-                showToast('Você precisa estar logado para alterar sua senha.', true);
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/users/me/password`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({
-                        currentPassword: currentPassword,
-                        newPassword: newPassword
-                    })
-                });
-                
-                if (response.ok) {
-                    showToast('Senha alterada com sucesso!');
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
-                    modal.hide();
-                    changePasswordForm.reset();
-                } else {
-                    const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
-                    throw new Error(errorData.message || 'Falha ao alterar senha');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showToast('Erro ao alterar senha: ' + error.message, true);
             }
         });
     }
@@ -205,7 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+                // CORREÇÃO AQUI: URL ajustada para /user/deletarUser
+                const response = await fetch(`${API_BASE_URL}/user/deletarUser`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': 'Bearer ' + token
@@ -222,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
                     throw new Error(errorData.message || 'Falha ao excluir conta');
                 }
-                // Opcional: Se a exclusão falhar, o usuário ainda está logado, então pode-se tentar carregar o perfil novamente.
             } catch (error) {
                 console.error('Erro ao excluir conta:', error);
                 showToast('Erro ao excluir conta: ' + error.message, true);
@@ -230,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Modo escuro (manter se quiser um switch, mas você pediu para remover preferências)
+    // Modo escuro (mantido)
     const darkModeSwitch = document.getElementById('darkModeSwitch');
     if (darkModeSwitch) { 
         const savedMode = localStorage.getItem('darkMode');
@@ -253,14 +151,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para carregar dados do usuário
     async function loadUserData() {
         const token = getToken();
-        if (!token) {
-            console.warn("Token não encontrado, redirecionando para login.");
-            window.location.href = 'login.html'; // Redireciona se não houver token
+        const userId = getUserId(); 
+
+        if (!token || !userId) {
+            console.warn("Token ou ID do usuário não encontrado. Redirecionando para login.");
+            window.location.href = 'login.html'; 
             return;
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+            // CORREÇÃO AQUI: URL ajustada para /user/{id}
+            const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -268,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (response.ok) {
                 const userData = await response.json(); 
-                console.log("Dados do usuário recebidos para perfil:", userData); // Log para inspecionar os dados
+                console.log("Dados do usuário recebidos para perfil:", userData); 
                 updateProfileUI(userData);
             } else if (response.status === 401 || response.status === 403) {
                 console.warn("Sessão expirada ou não autorizada. Limpando token e redirecionando.");
@@ -291,31 +192,29 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Populando o cabeçalho do perfil
         document.getElementById('profileName').textContent = userData.name || 'Nome Indisponível';
         document.getElementById('profileUsername').textContent = `@${userData.email ? userData.email.split('@')[0] : 'usuario'}`; 
         
-        if (profileAvatar) { // Verifica se o elemento profileAvatar existe
-            if (userData.avatarUrl) {
-                profileAvatar.src = userData.avatarUrl;
-            } else {
-                profileAvatar.src = 'assets/images/profile-placeholder.jpg'; // Imagem padrão
-            }
+        if (profileAvatar) { 
+            profileAvatar.src = 'assets/images/profile-placeholder.jpg'; 
         }
         
-        document.getElementById('profileBio').textContent = userData.bio || 'Sem biografia';
+        document.getElementById('profileBio').textContent = 'Sem biografia'; 
         
-        // Estatísticas (assumindo que o backend pode fornecer. Se não, ficarão em 0)
-        document.getElementById('eventCount').textContent = userData.totalEventos || 0; 
-        document.getElementById('participantCount').textContent = userData.totalParticipantes || 0;
+        document.getElementById('eventCount').textContent = 0; 
+        document.getElementById('participantCount').textContent = 0;
         
-        // Informações Detalhadas
         document.getElementById('infoNome').textContent = userData.name || '--'; 
         document.getElementById('infoEmail').textContent = userData.email || '--';
         document.getElementById('infoTelefone').textContent = userData.phone || '--'; 
-        document.getElementById('infoLocalizacao').textContent = userData.location || '--'; 
-        document.getElementById('infoBio').textContent = userData.bio || '--'; 
-        document.getElementById('infoMembroDesde').textContent = formatDate(userData.createdAt) || '--'; 
-        document.getElementById('senhaUltimaAlteracao').textContent = '--'; // Este campo geralmente não vem no DTO de perfil, deve ser atualizado separadamente se houver API
+        document.getElementById('infoLocalizacao').textContent = '--'; 
+        document.getElementById('infoBio').textContent = '--'; 
+        document.getElementById('infoMembroDesde').textContent = '--'; 
+        document.getElementById('senhaUltimaAlteracao').textContent = '--'; 
+        
+        const infoGender = document.getElementById('infoGender'); 
+        if (infoGender) {
+            infoGender.textContent = userData.gender || '--';
+        }
     }
 });

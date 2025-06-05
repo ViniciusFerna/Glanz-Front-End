@@ -1,9 +1,8 @@
 // js/cadastro.js
 
 document.addEventListener('DOMContentLoaded', function () {
-    // API_BASE_URL e showToast são assumidos como globais via js/utils.js
-    // const API_BASE_URL = 'http://localhost:8080'; 
-    // function showToast(message, isError = false) { /* ... implementação ... */ }
+    const API_BASE_URL = window.API_BASE_URL; // Usando a variável global
+    const showToast = window.showToast;       // Usando a função global
 
     // Elementos do DOM
     const cadastroForm = document.getElementById('cadastroForm');
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validação dos termos de serviço
         const termosCheckbox = document.getElementById('termos');
-        if (!termosCheckbox || !termosCheckbox.checked) { // Adicionada verificação de existência do elemento
+        if (!termosCheckbox || !termosCheckbox.checked) {
             cadastroError.textContent = 'Você deve aceitar os termos de serviço.';
             cadastroError.classList.remove('d-none');
             return;
@@ -80,11 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const phone = document.getElementById('telefone').value;
         const gender = generoSelect.value;
         const password = senhaInput.value;
-        const location = document.getElementById('localizacao') ? document.getElementById('localizacao').value : ''; // Garante que não falha se campo não existir
-        const bio = document.getElementById('bio') ? document.getElementById('bio').value : ''; // Garante que não falha se campo não existir
 
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            // CORREÇÃO AQUI: URL ajustada para /user/registrar
+            const response = await fetch(`${API_BASE_URL}/user/registrar`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,20 +92,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     phone,
                     email,
                     password,
-                    gender,
-                    location,
-                    bio,      
-                    role: "CLIENTE" 
+                    gender
                 })
             });
 
             if (response.ok) {
-                // Mensagem de sucesso visível para o usuário
-                if (typeof showToast === 'function') { // Verifica se showToast é uma função global
-                    showToast('Conta criada com sucesso! Redirecionando para o login...', false); 
-                } else {
-                    alert('Conta criada com sucesso! Você será redirecionado para o login.'); // Fallback se showToast não for global
-                }
+                showToast('Conta criada com sucesso! Redirecionando para o login...', false); 
                 
                 cadastroForm.reset(); 
                 setTimeout(() => {
