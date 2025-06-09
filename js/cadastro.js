@@ -1,8 +1,9 @@
 // js/cadastro.js
 
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE_URL = window.API_BASE_URL; // Usando a variável global
-    const showToast = window.showToast;       // Usando a função global
+    // MANTENHA ESTA URL COMO LOCALHOST:8080 se estiver rodando localmente!
+    const API_BASE_URL = 'http://localhost:8080'; 
+    const showToast = window.showToast;       
 
     // Elementos do DOM
     const cadastroForm = document.getElementById('cadastroForm');
@@ -10,10 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const confirmarSenhaInput = document.getElementById('confirmarSenha');
     const passwordStrength = document.getElementById('passwordStrength');
     const passwordMatchText = document.getElementById('passwordMatchText');
-    const cadastroError = document.getElementById('cadastroError');
+    const cadastroError = document.getElementById('cadastroError'); 
     const generoSelect = document.getElementById('genero');
 
-    // Verificar força da senha
     senhaInput.addEventListener('input', function () {
         const password = this.value;
         let strength = 0;
@@ -27,15 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
         passwordStrength.style.width = strength + '%';
 
         if (strength < 50) {
-            passwordStrength.style.backgroundColor = '#e74c3c'; // Vermelho (fraca)
+            passwordStrength.style.backgroundColor = '#e74c3c';
         } else if (strength < 75) {
-            passwordStrength.style.backgroundColor = '#f39c12'; // Laranja (média)
+            passwordStrength.style.backgroundColor = '#f39c12';
         } else {
-            passwordStrength.style.backgroundColor = '#2ecc71'; // Verde (forte)
+            passwordStrength.style.backgroundColor = '#2ecc71';
         }
     });
 
-    // Verificar correspondência de senhas
     confirmarSenhaInput.addEventListener('input', function () {
         if (senhaInput.value !== this.value) {
             passwordMatchText.textContent = 'As senhas não coincidem';
@@ -46,20 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Submissão do formulário
     cadastroForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        cadastroError.classList.add('d-none');
+        cadastroError.classList.add('d-none'); 
 
-        // Validação de senhas
         if (senhaInput.value !== confirmarSenhaInput.value) {
             cadastroError.textContent = 'As senhas não coincidem.';
             cadastroError.classList.remove('d-none');
             return;
         }
 
-        // Validação dos termos de serviço
         const termosCheckbox = document.getElementById('termos');
         if (!termosCheckbox || !termosCheckbox.checked) {
             cadastroError.textContent = 'Você deve aceitar os termos de serviço.';
@@ -67,13 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Exibir loading
         const cadastroText = document.getElementById('cadastroText');
         const cadastroSpinner = document.getElementById('cadastroSpinner');
         if (cadastroText) cadastroText.classList.add('d-none');
         if (cadastroSpinner) cadastroSpinner.classList.remove('d-none');
 
-        // Coletar dados do formulário
         const name = document.getElementById('nome').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('telefone').value;
@@ -81,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = senhaInput.value;
 
         try {
-            // CORREÇÃO AQUI: URL ajustada para /user/registrar
             const response = await fetch(`${API_BASE_URL}/user/registrar`, {
                 method: 'POST',
                 headers: {
@@ -96,14 +89,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             });
 
-            if (response.ok) {
-                showToast('Conta criada com sucesso! Redirecionando para o login...', false); 
-                
-                cadastroForm.reset(); 
+            if (response.ok) { // Status 200 OK (ou 201 Created)
+                showToast('Conta criada com sucesso! Redirecionando para o login...', false);
+                cadastroForm.reset();
                 setTimeout(() => {
-                    window.location.href = 'login.html'; 
-                }, 2000); 
-            } else {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } else if (response.status === 409) { // Trata status 409 CONFLICT (Email já cadastrado)
+                const errorMessage = await response.text(); 
+                console.log("DEBUG 409 Response Text:", errorMessage); 
+                cadastroError.textContent = errorMessage || 'Email já cadastrado. Por favor, tente outro.'; 
+                cadastroError.classList.remove('d-none');
+            } else if (response.status === 400) { // Trata status 400 BAD_REQUEST (Nome/Senha vazios)
+                const errorMessage = await response.text();
+                console.log("DEBUG 400 Response Text:", errorMessage); 
+                cadastroError.textContent = errorMessage || 'Dados inválidos. Por favor, preencha todos os campos obrigatórios.';
+                cadastroError.classList.remove('d-none');
+            } else { // Outros erros (500, etc.)
                 const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido ao cadastrar.' }));
                 console.error('Erro na resposta do backend:', errorData);
                 cadastroError.textContent = errorData.message || 'Erro ao cadastrar. Verifique os dados e tente novamente.';
@@ -119,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Máscara para telefone
     document.getElementById('telefone')?.addEventListener('input', function (e) {
         const x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');

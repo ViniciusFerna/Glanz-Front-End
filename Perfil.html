@@ -109,38 +109,10 @@
                                         <span class="info-label">Telefone:</span>
                                         <span class="info-value" id="infoTelefone">--</span>
                                     </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Localização:</span>
-                                        <span class="info-value" id="infoLocalizacao">--</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Biografia:</span>
-                                        <span class="info-value" id="infoBio">--</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Membro desde:</span>
-                                        <span class="info-value" id="infoMembroDesde">--</span>
-                                    </div>
                                 </div>
                             </div>
                             
                             <div class="profile-info-section mt-4">
-                                <h4 class="section-title"><i class="fas fa-shield-alt me-2"></i>Segurança</h4>
-                                <div class="security-items">
-                                    <div class="security-item">
-                                        <div class="security-icon">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                        <div class="security-content">
-                                            <h5>Senha</h5>
-                                            <p>Última alteração: <span id="senhaUltimaAlteracao">--</span></p>
-                                        </div>
-                                        <button class="btn btn-outline-verde btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                            Alterar
-                                        </button>
-                                    </div>
-                                </div>
-
                                 <h4 class="section-title mt-4 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Zona de Perigo</h4>
                                 <div class="security-items">
                                     <div class="security-item bg-danger-subtle border border-danger">
@@ -181,50 +153,11 @@
                             <label for="editTelefone" class="form-label">Telefone</label>
                             <input type="tel" class="form-control" id="editTelefone">
                         </div>
-                        <div class="mb-3">
-                            <label for="editLocalizacao" class="form-label">Localização</label>
-                            <input type="text" class="form-control" id="editLocalizacao">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editBio" class="form-label">Biografia</label>
-                            <textarea class="form-control" id="editBio" rows="3"></textarea>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="saveProfileBtn">Salvar Alterações</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Alterar Senha</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label for="currentPassword" class="form-label">Senha Atual</label>
-                            <input type="password" class="form-control" id="currentPassword" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="newPassword" class="form-label">Nova Senha</label>
-                            <input type="password" class="form-control" id="newPassword" required minlength="6">
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirmar Nova Senha</label>
-                            <input type="password" class="form-control" id="confirmPassword" required minlength="6">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="savePasswordBtn">Alterar Senha</button>
                 </div>
             </div>
         </div>

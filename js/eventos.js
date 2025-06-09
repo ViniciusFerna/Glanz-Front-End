@@ -1,12 +1,12 @@
 // js/eventos.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const API_BASE_URL = window.API_BASE_URL; 
-    const getToken = window.getToken; 
+    const API_BASE_URL = "http://localhost:8080";
+    const getToken = window.getToken;
     const getUserRole = window.getUserRole;
-    const getUserId = window.getUserId; 
-    const removeToken = window.removeToken; 
-    const showToast = window.showToast; 
+    const getUserId = window.getUserId;
+    const removeToken = window.removeToken;
+    const showToast = window.showToast;
 
     const eventsContainer = document.getElementById('events-container');
     const eventForm = document.getElementById('eventForm');
@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalTitle = document.getElementById('modalTitle');
     const saveEventBtn = document.getElementById('saveEventBtn');
     const addEventBtn = document.getElementById('add-event-btn');
-    
+
     let currentFilter = 'all';
-    let events = []; 
-    
-    const userRole = getUserRole(); 
-    const userId = getUserId(); 
-    
+    let events = []; // Esta variável agora armazenará um array, mesmo que com um único evento
+
+    const userRole = getUserRole();
+    const userId = getUserId();
+
     function formatDate(dateString) {
         if (!dateString) return 'Data não definida';
         const date = new Date(dateString);
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             minute: '2-digit'
         });
     }
-    
+
     function formatDateTimeForInput(dateString) {
         if (!dateString) return '';
         const date = new Date(dateString);
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day}T${hours}:${minutes}`;
     }
-    
+
     function formatStatus(status) {
         const statusMap = {
             'PLANEJADO': 'Planejado',
@@ -54,14 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return statusMap[status] || status;
     }
 
-    loadEvents(); 
-    setupEventListeners(); 
-    
-    if (addEventBtn) { 
-        if (userRole === 'ADMIN') { 
-            addEventBtn.style.display = 'block'; 
+    loadEvents();
+    setupEventListeners();
+
+    if (addEventBtn) {
+        if (userRole === 'ADMIN') {
+            addEventBtn.style.display = 'block';
         } else {
-            addEventBtn.style.display = 'none'; 
+            addEventBtn.style.display = 'none';
         }
     }
 
@@ -74,36 +74,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            
+
             let fetchUrl;
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': getToken() ? 'Bearer ' + getToken() : '' 
+                'Authorization': getToken() ? 'Bearer ' + getToken() : ''
             };
 
-            if (userRole === 'ADMIN') { 
-                fetchUrl = `${API_BASE_URL}/eventos/all`; 
+            if (userRole === 'ADMIN') {
+                fetchUrl = `${API_BASE_URL}/eventos/all`;
+            } else if (userRole === 'USER') {
+                // Para usuários ROLE_USER, busca o evento que eles possuem
+                if (!userId) { // Certifique-se que o userId está disponível
+                    console.error("ID do usuário não encontrado para carregar eventos.");
+                    removeToken();
+                    window.location.href = 'login.html';
+                    return;
+                }
+                fetchUrl = `${API_BASE_URL}/user/${userId}/events`;
             } else {
-                fetchUrl = `${API_BASE_URL}/eventos/`; 
+                // Para usuários não logados (público), mostra eventos visíveis
+                fetchUrl = `${API_BASE_URL}/eventos/`;
             }
 
             const response = await fetch(fetchUrl, { headers });
 
-            if (response.ok) { 
-                events = await response.json(); 
-            } else if (response.status === 204) { 
+            if (response.ok) {
+                if (userRole === 'USER') {
+                    // Se a resposta for OK para um USER, significa que um evento foi retornado
+                    const eventData = await response.json();
+                    events = [eventData]; // Coloca o único evento em um array
+                } else {
+                    // Para ADMINs ou usuários não logados, a resposta é sempre uma lista
+                    events = await response.json();
+                }
+            } else if (response.status === 204) {
+                // NO_CONTENT significa que não há evento para o usuário ou lista vazia para outros
                 events = [];
             } else if (response.status === 401 || response.status === 403) {
                 console.warn("Sessão expirada ou não autorizada. Limpando token e redirecionando.");
-                removeToken(); 
+                removeToken();
                 window.location.href = 'login.html';
-                return; 
-            } else { 
+                return;
+            } else {
                 const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
                 throw new Error(errorData.message || 'Erro ao carregar eventos');
             }
-            
-            renderEvents(events); 
+
+            renderEvents(events);
         } catch (error) {
             console.error('Erro ao carregar eventos:', error);
             eventsContainer.innerHTML = `
@@ -115,13 +133,13 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast('Erro ao carregar eventos: ' + error.message, true);
         }
     }
-    
+
     function renderEvents(eventsToRender) {
         if (eventsToRender.length === 0) {
             let noEventsMessage = 'Nenhum evento encontrado no momento.';
-            if (userRole === 'USER') { 
-                noEventsMessage = 'Você ainda não possui eventos contratados ou associados à sua conta.';
-            } else if (userRole === 'ADMIN') { 
+            if (userRole === 'USER') {
+                noEventsMessage = 'Você não possui eventos associados à sua conta.';
+            } else if (userRole === 'ADMIN') {
                 noEventsMessage = 'Nenhum evento cadastrado no sistema.';
             }
 
@@ -129,34 +147,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-calendar-times fa-3x mb-3" style="color: var(--verde);"></i>
                     <h4>${noEventsMessage}</h4>
-                    <p>Crie um novo evento ou aguarde ser associado a um.</p>
+                    ${userRole === 'ADMIN' ? '<p>Crie um novo evento.</p>' : ''}
                 </div>
             `;
             return;
         }
-        
-        eventsContainer.innerHTML = ''; 
-        
+
+        eventsContainer.innerHTML = '';
+
         eventsToRender.forEach(event => {
             const eventElement = document.createElement('div');
             eventElement.className = 'event-card';
             eventElement.setAttribute('data-status', event.status);
-            eventElement.setAttribute('data-aos', 'fade-up'); 
-            
+            eventElement.setAttribute('data-aos', 'fade-up');
+
             // Adiciona um listener de clique no card para redirecionar
             eventElement.addEventListener('click', () => {
                 window.location.href = `detalhes-evento.html?id=${event.id}`;
             });
 
             let actionButtonsHtml = '';
-            if (userRole === 'ADMIN') { 
+            // Apenas ADMINs podem editar/excluir eventos
+            if (userRole === 'ADMIN') {
                 actionButtonsHtml = `
-                    <button class="btn btn-outline-verde btn-edit" data-id="${event.id}">
-                        <i class="fas fa-edit"></i> Editar
-                    </button>
-                    <button class="btn btn-outline-danger btn-delete" data-id="${event.id}">
-                        <i class="fas fa-trash-alt"></i> Excluir
-                    </button>
+                    <button class="btn btn-outline-verde btn-edit" data-id="${event.id}"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn btn-outline-danger btn-delete" data-id="${event.id}"><i class="fas fa-trash-alt"></i> Excluir</button>
                 `;
             }
 
@@ -176,37 +191,36 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${event.location}
                     </p>
                     ${event.description ? `<p class="event-description">${event.description}</p>` : ''}
-                    ${event.contractingClientName ? `<p class="event-client"><i class="fas fa-user-tie"></i> Cliente: ${event.contractingClientName}</p>` : ''} 
+                    ${event.contractingClientName ? `<p class="event-client"><i class="fas fa-user-tie"></i> Cliente: ${event.contractingClientName}</p>` : ''}
                     <div class="event-actions">
                         ${actionButtonsHtml}
                     </div>
                 </div>
             `;
-            
+
             eventsContainer.appendChild(eventElement);
         });
-        
-        if (userRole === 'ADMIN') { 
-            // Os event listeners para editar e deletar devem ser adicionados APÓS o card ter sido adicionado ao DOM,
-            // e eles devem impedir a propagação do clique para o card principal.
+
+        // Adiciona listeners para os botões de ação APENAS se o usuário for ADMIN
+        if (userRole === 'ADMIN') {
             document.querySelectorAll('.btn-edit').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Impede que o clique no botão ative o redirecionamento do card
+                    e.stopPropagation(); // Impede que o clique no botão também ative o clique no card
                     handleEdit(e);
                 });
             });
-            
+
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Impede que o clique no botão ative o redirecionamento do card
+                    e.stopPropagation(); // Impede que o clique no botão também ative o clique no card
                     handleDelete(e);
                 });
             });
         }
-        
-        AOS.refresh(); 
+
+        AOS.refresh();
     }
-    
+
     function setupEventListeners() {
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -216,32 +230,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 applyFilter();
             });
         });
-        
-        if (userRole === 'ADMIN' && addEventBtn) { 
+
+        if (userRole === 'ADMIN' && addEventBtn) {
             addEventBtn.addEventListener('click', function() {
                 eventForm.reset();
-                document.getElementById('eventId').value = ''; 
+                document.getElementById('eventId').value = '';
                 modalTitle.textContent = 'Adicionar Novo Evento';
                 saveEventBtn.textContent = 'Salvar Evento';
                 eventModal.show();
             });
         }
-        
-        if (saveEventBtn) { 
+
+        if (saveEventBtn) {
             saveEventBtn.addEventListener('click', async function() {
                 if (!eventForm.checkValidity()) {
                     eventForm.classList.add('was-validated');
                     return;
                 }
-                
-                const token = getToken(); 
+
+                const token = getToken();
                 if (!token) {
                     showToast('Você precisa estar logado para salvar eventos.', true);
-                    removeToken(); 
-                    window.location.href = 'login.html'; 
+                    removeToken();
+                    window.location.href = 'login.html';
                     return;
                 }
-                if (userRole !== 'ADMIN') { 
+                if (userRole !== 'ADMIN') {
                     showToast('Acesso negado. Você não tem permissão para criar/editar eventos.', true);
                     return;
                 }
@@ -253,34 +267,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     eventDate: document.getElementById('eventDate').value,
                     status: document.getElementById('eventStatus').value,
                 };
-                
+
                 const eventId = document.getElementById('eventId').value;
-                const isEdit = !!eventId; 
-                
+                const isEdit = !!eventId;
+
                 try {
                     const response = await fetch(
-                        isEdit 
-                            ? `${API_BASE_URL}/eventos/${eventId}` 
-                            : `${API_BASE_URL}/eventos/criarEvento`, 
-                        {
+                        isEdit ? `${API_BASE_URL}/eventos/${eventId}` : `${API_BASE_URL}/eventos/criarEvento`, {
                             method: isEdit ? 'PUT' : 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'Authorization': 'Bearer ' + token 
+                                'Authorization': 'Bearer ' + token
                             },
-                            body: JSON.stringify(eventData) 
+                            body: JSON.stringify(eventData)
                         }
                     );
-                    
-                    if (response.ok) { 
-                        eventModal.hide(); 
-                        loadEvents(); 
+
+                    if (response.ok) {
+                        eventModal.hide();
+                        loadEvents();
                         showToast(isEdit ? 'Evento atualizado com sucesso!' : 'Evento criado com sucesso!');
                     } else if (response.status === 401 || response.status === 403) {
-                         showToast('Acesso negado. Você não tem permissão para realizar esta ação.', true);
-                         removeToken();
-                         window.location.href = 'login.html';
-                    } else { 
+                        showToast('Acesso negado. Você não tem permissão para realizar esta ação.', true);
+                        removeToken();
+                        window.location.href = 'login.html';
+                    } else {
                         const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
                         throw new Error(errorData.message || 'Erro ao salvar evento');
                     }
@@ -291,55 +302,53 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-    
+
     function applyFilter() {
-        if (currentFilter === 'all') {
-            loadEvents(); 
-        } else {
-            const filteredEvents = events.filter(event => event.status === currentFilter);
-            renderEvents(filteredEvents);
-        }
+        // Para USER, o filtro 'all' já mostra o único evento.
+        // Se houverem outros filtros específicos para USER, a lógica precisaria ser expandida.
+        // Por enquanto, apenas recarrega os eventos.
+        loadEvents();
     }
-    
+
     async function handleEdit(e) {
         const eventId = e.currentTarget.getAttribute('data-id');
         const token = getToken();
-        if (!token) { 
+        if (!token) {
             showToast('Você precisa estar logado para editar eventos.', true);
             window.location.href = 'login.html';
             return;
         }
-        if (getUserRole() !== 'ADMIN') { 
+        if (getUserRole() !== 'ADMIN') {
             showToast('Acesso negado. Você não tem permissão para editar eventos.', true);
-             return;
+            return;
         }
-        
+
         try {
             const response = await fetch(`${API_BASE_URL}/eventos/${eventId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token 
+                    'Authorization': 'Bearer ' + token
                 }
             });
-            
+
             if (response.ok) {
                 const event = await response.json();
-                
+
                 document.getElementById('eventId').value = event.id;
                 document.getElementById('eventTitle').value = event.title;
                 document.getElementById('eventDescription').value = event.description || '';
                 document.getElementById('eventLocation').value = event.location;
                 document.getElementById('eventDate').value = formatDateTimeForInput(event.eventDate);
                 document.getElementById('eventStatus').value = event.status;
-                
+
                 modalTitle.textContent = 'Editar Evento';
                 saveEventBtn.textContent = 'Atualizar Evento';
-                eventModal.show(); 
+                eventModal.show();
             } else if (response.status === 401 || response.status === 403) {
-                 showToast('Acesso negado ou token inválido. Faça login novamente.', true);
-                 removeToken();
-                 window.location.href = 'login.html';
+                showToast('Acesso negado ou token inválido. Faça login novamente.', true);
+                removeToken();
+                window.location.href = 'login.html';
             } else {
                 const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
                 throw new Error(errorData.message || 'Erro ao carregar evento para edição');
@@ -349,10 +358,10 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast('Erro ao carregar evento para edição: ' + error.message, true);
         }
     }
-    
+
     async function handleDelete(e) {
-        if (!confirm('Tem certeza que deseja excluir este evento? Esta ação é irreversível.')) return; 
-        
+        if (!confirm('Tem certeza que deseja excluir este evento? Esta ação é irreversível.')) return;
+
         const eventId = e.currentTarget.getAttribute('data-id');
         const token = getToken();
         if (!token) {
@@ -360,26 +369,26 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
             return;
         }
-        if (getUserRole() !== 'ADMIN') { 
+        if (getUserRole() !== 'ADMIN') {
             showToast('Acesso negado. Você não tem permissão para excluir eventos.', true);
-             return;
+            return;
         }
-        
+
         try {
             const response = await fetch(`${API_BASE_URL}/eventos/${eventId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': 'Bearer ' + token 
+                    'Authorization': 'Bearer ' + token
                 }
             });
-            
+
             if (response.ok) {
-                loadEvents(); 
+                loadEvents();
                 showToast('Evento excluído com sucesso!');
             } else if (response.status === 401 || response.status === 403) {
-                 showToast('Acesso negado ou token inválido. Faça login novamente.', true);
-                 removeToken();
-                 window.location.href = 'login.html';
+                showToast('Acesso negado ou token inválido. Faça login novamente.', true);
+                removeToken();
+                window.location.href = 'login.html';
             } else {
                 const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
                 throw new Error(errorData.message || 'Erro ao excluir evento');

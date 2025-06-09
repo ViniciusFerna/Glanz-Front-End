@@ -72,6 +72,7 @@
     display: flex; 
     flex-direction: column; 
     cursor: pointer; 
+    min-height: 380px; /* Altura mínima ajustada para desktop */
 }
 
 .event-card:hover {
@@ -94,6 +95,8 @@
     display: flex; 
     flex-direction: column; 
     flex-grow: 1; 
+    justify-content: space-between; 
+    align-items: flex-start; 
 }
 
 .event-title {
@@ -101,14 +104,15 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--branco);
-    /* --- NOVAS REGRAS PARA TRUNCAGEM DO TÍTULO --- */
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita o título a 2 linhas */
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.4; /* Ajuste a altura da linha para melhor leitura */
-    max-height: calc(1.4em * 2); /* Garante a altura máxima para 2 linhas */
+    line-height: 1.4; 
+    max-height: calc(1.4em * 2); 
+    word-break: break-word; 
+    width: 100%; 
 }
 
 .event-date {
@@ -118,6 +122,7 @@
     color: var(--verde);
     font-size: 0.9rem;
     margin-bottom: 0.8rem;
+    width: 100%; 
 }
 
 .event-location {
@@ -127,21 +132,23 @@
     font-size: 0.9rem;
     margin-bottom: 1rem;
     opacity: 0.8;
+    width: 100%; 
 }
 
 .event-description {
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
     color: rgba(255, 255, 255, 0.7);
-    /* --- NOVAS REGRAS PARA TRUNCAGEM DA DESCRIÇÃO --- */
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita a descrição a 2 linhas */
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.3; /* Ajuste a altura da linha para melhor leitura */
-    max-height: calc(1.3em * 2); /* Garante a altura máxima para 2 linhas */
+    line-height: 1.3; 
+    max-height: calc(1.3em * 2); 
     flex-grow: 1; 
+    word-break: break-word; 
+    width: 100%; 
 }
 
 .event-status {
@@ -152,7 +159,7 @@
     font-weight: 600;
     margin-bottom: 1rem;
     text-align: center; 
-    white-space: nowrap; /* Garante que o texto não quebre para a próxima linha */
+    white-space: nowrap; 
 }
 
 .status-PLANEJADO {
@@ -183,24 +190,34 @@
     display: flex;
     gap: 0.8rem;
     margin-top: auto; 
+    width: 100%; 
+    flex-wrap: wrap; 
+    justify-content: center; 
 }
 
 .event-actions .btn {
-    flex: 1;
+    /* CORREÇÃO CRÍTICA AQUI: */
+    flex: 0 0 auto; /* NÃO cresce, NÃO encolhe, tamanho inicial baseado no conteúdo */
     font-size: 0.85rem;
     padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
     text-align: center;
+    gap: 0.5rem; 
+    
+    white-space: nowrap !important; /* <--- FORÇA O NÃO-ENROLAMENTO (DEBUG), É O PROBLEMA REAL */
+    overflow: hidden; /* Esconde o que transborda */
+    text-overflow: ellipsis; /* Adiciona "..." */
+    min-width: 0; /* Permite encolher para que overflow:hidden funcione */
+    /* Removido max-width aqui, já que queremos o tamanho do conteúdo com truncagem */
 }
 
 .event-actions .btn i {
     margin-right: 0;
 }
 
-/* Modal */
+/* Modal (Mantido) */
 .modal-content {
     background-color: var(--cinza-escuro);
     color: var(--branco);
@@ -254,6 +271,10 @@
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
+    
+    .event-card {
+        min-height: 330px; 
+    }
 }
 
 @media (max-width: 576px) {
@@ -273,5 +294,21 @@
     
     .events-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .event-card {
+        min-height: 280px; 
+    }
+    /* Botões em coluna para telas muito pequenas */
+    .event-actions {
+        flex-direction: column; 
+        gap: 0.5rem; 
+    }
+    .event-actions .btn {
+        width: 100%; 
+        min-width: auto; 
+        max-width: none; 
+        padding: 0.75rem 0.5rem; 
+        font-size: 1rem; 
     }
 }
