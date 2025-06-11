@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const data = await response.json();
                     saveToken(data.token, rememberMe); 
                     
-                    showToast('Login realizado com sucesso!');
+                    showToast('Login realizado com sucesso!')
                     window.location.href = 'index.html'; 
                 } else {
                     const errorData = await response.json().catch(() => ({ message: 'Credenciais inválidas.' }));

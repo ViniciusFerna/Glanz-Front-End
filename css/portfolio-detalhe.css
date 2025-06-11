@@ -22,6 +22,10 @@
     background-image: url('../assets/images/evento-musical.jpg');
 }
 
+.aniversario-hero {
+    background-image: url('../assets/images/aniversarioInfantil.jpeg');
+}
+
 .hero-detalhe .hero-overlay {
     position: absolute;
     top: 0;
